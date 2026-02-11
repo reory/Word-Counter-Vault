@@ -1,0 +1,108 @@
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: var(--text);
+}
+
+/* Buttons */
+.btn {
+    background: var(--primary);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline-block;
+}
+
+.btn.small {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Alerts */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.alert-success {
+    background: #e8f7e8;
+    color: #2d7a2d;
+}
+
+.alert-danger {
+    background: #fdeaea;
+    color: #b33a3a;
+}
+
+.alert-warning {
+    background: #fff4cc;
+    color: #b38a00;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    color: var(--text);
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.hidden {
+    display: none;
+}
+
+/* Sidebar (Dashboard layout) */
+.sidebar {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--text);
+}
+
+.dashboard-main {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    color: var(--text);
+}

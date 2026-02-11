@@ -1,0 +1,18 @@
+/* Text colors */
+.text-primary { color: var(--primary) }
+.text-secondary { color: var(--secondary) }
+.text-success { color: #2d7a2d }
+.text-danger { color: #b33a3a }
+.text-warning { color: #b38a00 }
+.text-muted { color: #777 }
+
+/* Background colors */
+.bg-primary { background: var(--primary); color: white }
+.bg-secondary { background: var(--secondary); color: white }
+.bg-success { background: #e8f7e8; color: #2d7a2d }
+.bg-danger { background: #fdeaea; color: #b33a3a }
+.bg-warning { background: #fff4cc; color: #b38a00 }
+.bg-light { background: #f5f5f5 }
+.bg-dark { background: #333; color: white }
+
+/* use it with <div class="bg-success p-3 rounded"> */

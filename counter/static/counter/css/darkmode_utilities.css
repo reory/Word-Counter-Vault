@@ -1,0 +1,91 @@
+/* ============================
+   DARK MODE — GLOBAL OVERRIDES
+   ============================ */
+
+body.dark-mode {
+    background-color: #121212 !important;
+    background-image: none !important;
+    color: #e0e0e0 !important;
+}
+
+/* Override Bootstrap bg-light on body */
+body.dark-mode.bg-light {
+    background-color: #121212 !important;
+}
+
+/* Optional: container background (transparent is cleanest) */
+body.dark-mode .container {
+    background-color: transparent !important;
+}
+
+/* ============================
+   BACKGROUNDS
+   ============================ */
+
+.dark-mode .bg-light { background: #2a2a2a !important; }
+.dark-mode .bg-white { background: #1e1e1e !important; }
+.dark-mode .bg-primary { background: #0d6efd !important; }
+
+/* ============================
+   TEXT
+   ============================ */
+
+.dark-mode .text-muted { color: #aaa !important; }
+.dark-mode .text-dark { color: #eee !important; }
+
+/* Make ALL card text readable */
+body.dark-mode .card,
+body.dark-mode .card p,
+body.dark-mode .card li,
+body.dark-mode .card h5,
+body.dark-mode .card strong,
+body.dark-mode .card span {
+    color: #e0e0e0 !important;
+}
+
+/* ============================
+   BORDERS
+   ============================ */
+
+.dark-mode .border { border-color: #444 !important; }
+
+/* ============================
+   CARDS
+   ============================ */
+
+.dark-mode .card {
+    background: #1f1f1f !important;
+    border-color: #333 !important;
+}
+
+/* Card headers */
+body.dark-mode .card-header {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+/* ============================
+   BUTTONS
+   ============================ */
+
+body.dark-mode .btn-light,
+body.dark-mode .btn-outline-primary {
+    color: #e0e0e0 !important;
+    border-color: #888 !important;
+    background-color: #333 !important;
+}
+
+/* ============================
+   FORM CONTROLS
+   ============================ */
+
+body.dark-mode textarea,
+body.dark-mode input[type="file"],
+body.dark-mode input[type="text"],
+body.dark-mode .form-control {
+    background-color: #2a2a2a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+

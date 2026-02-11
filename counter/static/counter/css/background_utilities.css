@@ -1,0 +1,4 @@
+.bg-white { background: #fff }
+.bg-light { background: #f5f5f5 }
+.bg-dark { background: #333 }
+.bg-primary { background: var(--primary) }

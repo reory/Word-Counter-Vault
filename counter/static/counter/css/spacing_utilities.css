@@ -1,0 +1,21 @@
+/* Margin */
+.m-0 { margin: 0 }
+.m-1 { margin: 4px }
+.m-2 { margin: 8px }
+.m-3 { margin: 12px }
+.m-4 { margin: 16px }
+.m-5 { margin: 20px }
+
+/* Margin top */
+.mt-1 { margin-top: 4px }
+.mt-2 { margin-top: 8px }
+.mt-3 { margin-top: 12px }
+.mt-4 { margin-top: 16px }
+.mt-5 { margin-top: 20px }
+
+/* Padding */
+.p-1 { padding: 4px }
+.p-2 { padding: 8px }
+.p-3 { padding: 12px }
+.p-4 { padding: 16px }
+.p-5 { padding: 20px }

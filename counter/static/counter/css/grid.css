@@ -1,0 +1,18 @@
+/* Basic grid */
+.grid { display: grid }
+
+/* Column counts */
+.grid-1 { grid-template-columns: repeat(1, 1fr) }
+.grid-2 { grid-template-columns: repeat(2, 1fr) }
+.grid-3 { grid-template-columns: repeat(3, 1fr) }
+.grid-4 { grid-template-columns: repeat(4, 1fr) }
+.grid-5 { grid-template-columns: repeat(5, 1fr) }
+
+/* Gap sizes */
+.grid-gap-1 { gap: 4px }
+.grid-gap-2 { gap: 8px }
+.grid-gap-3 { gap: 12px }
+.grid-gap-4 { gap: 16px }
+.grid-gap-5 { gap: 20px }
+
+/* use it with <div class="grid grid-3 grid-gap-4"> */

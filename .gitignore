@@ -1,0 +1,17 @@
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Database
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Static files (if you use collectstatic)
+staticfiles/
+
+# Media files (user uploads)
+media/

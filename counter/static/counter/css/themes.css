@@ -1,0 +1,25 @@
+/* Light mode (default) */
+:root {
+    --bg: #eef1f5;       /* your original soft background */
+    --text: #333;
+    --card-bg: #ffffff;
+    --primary: #4a90e2;  /* your original blue */
+}
+
+/* Dark mode */
+body.dark {
+    --bg: #1e1e1e;
+    --text: #e5e5e5;
+    --card-bg: #2a2a2a;
+    --primary: #6aa8ff;  /* slightly lighter blue for dark mode */
+}
+
+/* Apply theme */
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.card {
+    background: var(--card-bg);
+}

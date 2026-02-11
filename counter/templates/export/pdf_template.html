@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Report</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #2D2D35;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        /* Logo styling */
+        .logo {
+            width: 120px;   /* Adjust as needed */
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        /* Chart wrapper to prevent clipping */
+        .chart-wrapper {
+            width: 100%;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        /* Chart scaling rules */
+        .chart {
+            max-width: 85%;   /* Adjust this number if needed */
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Global safety rule for all images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Bullet list styling */
+        ul {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <img src="{{ logo_url }}" alt="Logo" class="logo">
+
+    <h1>Text Analysis Report</h1>
+
+    <!-- Original Text -->
+    <div class="section">
+        <h2>Original Text</h2>
+        <p>{{ text }}</p>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+        <h2>Summary</h2>
+        <p>{{ summary }}</p>
+    </div>
+
+    <!-- Bullet Points -->
+    <div class="section">
+        <h2>Key Points</h2>
+        <ul>
+            {% for bullet in bullets %}
+                <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #222020f1;">
+
+    <!-- Chart -->
+    <div class="section">
+        <h2>Word Frequency Chart</h2>
+
+        <div class="chart-wrapper">
+            <img src="{{ chart_url }}" class="chart" alt="Word Frequency Chart">
+        </div>
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #3d3939;">
+
+    </div>
+
+    <!-- Topics -->
+    <div class="section">
+        <h2>Detected Topics</h2>
+        <p>{{ topics }}</p>
+    </div>
+
+    <!-- Word Count -->
+    <div class="section">
+        <h2>Word Count</h2>
+        <p>{{ word_count }}</p>
+    </div>
+
+    <!-- Longest Sentence -->
+    <div class="section">
+        <h2>Longest Sentence</h2>
+        <p>{{ longest_sentence }}</p>
+    </div>
+
+    <!-- Type-Token Ratio -->
+    <div class="section">
+        <h2>Lexical Diversity (TTR)</h2>
+        <p>{{ ttr }}</p>
+    </div>
+
+    <!-- Overused Words -->
+    <div class="section">
+        <h2>Overused Words</h2>
+        <p>{{ overused }}</p>
+    </div>
+
+    <!-- Passive Voice Count -->
+    <div class="section">
+        <h2>Passive Voice Count</h2>
+        <p>{{ passive_count }}</p>
+    </div>
+</body>
+</html>

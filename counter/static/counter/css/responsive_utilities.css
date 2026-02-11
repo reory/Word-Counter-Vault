@@ -1,0 +1,25 @@
+/* Small screens (≥ 640px) */
+@media (min-width: 640px) {
+    .sm-flex { display: flex }
+    .sm-grid-2 { grid-template-columns: repeat(2, 1fr) }
+    .sm-grid-3 { grid-template-columns: repeat(3, 1fr) }
+    .sm-text-lg { font-size: 1.25rem }
+}
+
+/* Medium screens (≥ 768px) */
+@media (min-width: 768px) {
+    .md-flex { display: flex }
+    .md-grid-3 { grid-template-columns: repeat(3, 1fr) }
+    .md-grid-4 { grid-template-columns: repeat(4, 1fr) }
+    .md-text-xl { font-size: 1.5rem }
+}
+
+/* Large screens (≥ 1024px) */
+@media (min-width: 1024px) {
+    .lg-flex { display: flex }
+    .lg-grid-4 { grid-template-columns: repeat(4, 1fr) }
+    .lg-grid-5 { grid-template-columns: repeat(5, 1fr) }
+    .lg-text-2xl { font-size: 2rem }
+}
+
+/* use with <div class="grid grid-1 sm-grid-2 md-grid-3 lg-grid-4"> */
