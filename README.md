@@ -4,6 +4,9 @@ An interactive intelligence dashboard and automated reporting tool built to anal
 
 ## 🚀 Live Demo
 Check out the live dashboard here:
+<p align="center">
+  <video src="videos/django_vault.mp4" width="100%" autoplay loop muted playsinline></video>
+</p>
 
 ## 📸 Screenshots
 See the full gallery here:
