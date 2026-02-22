@@ -14,7 +14,7 @@ See the full gallery here:
 ![Main Dashboard](screenshots/user_UI.png)
 ![Main Dashboard](screenshots/user_UI2.png)
 ![Main Dashboard Map](screenshots/map_of_words_history.png)
-![Main Dashboard Map](screesnhots/map.png)
+![Main Dashboard Map](screenshots/map.png)
 ![Main Login](screenshots/login_view.png)
 ![PDF Report](screenshots/pdf_report.png)
 ![Word Document](screenshots/word_document.png)
@@ -59,7 +59,7 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 
 ## ⚙️ Installation & Local Usage
 To run this project locally:
-1. **Clone the repo:** `git clone https://github.com/yourusername/word_counter_vault.git`
+1. **Clone the repo:** `git clone https://github.com/yourusername/word-counter-vault.git`
 2. **Install dependencies:** `pip install -r requirements.txt`
 3. **Seed the Global Vault:** `python -m counter.services.seed_origins`
 4. **Launch the app:** `python manage.py runserver`
