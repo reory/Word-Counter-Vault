@@ -10,7 +10,6 @@ Check out the live dashboard here:
 
 ## 📸 Screenshots
 See the full gallery here:
-## 📸 Screenshots
 ![Main Dashboard](screenshots/user_UI.png)
 ![Main Dashboard](screenshots/user_UI2.png)
 ![Main Dashboard Map](screenshots/map_of_words_history.png)
