@@ -15,3 +15,9 @@ staticfiles/
 
 # Media files (user uploads)
 media/
+
+.env
+*.log
+__pycache__/
+db.sqlite3
+word_vault_analytics.duckdb
