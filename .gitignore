@@ -16,6 +16,11 @@ staticfiles/
 # Media files (user uploads)
 media/
 
+# Large Media
+*.mp4
+*.mov
+video/
+
 .env
 *.log
 __pycache__/
