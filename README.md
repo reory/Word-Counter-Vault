@@ -75,19 +75,33 @@ To run this project locally:
 
 ---
 
+## 🧪 Quality Assurance & Testing
+This project implements a comprehensive automated testing suite using **Pytest** to ensure data integrity and security across the analytical pipeline.
+
+### Test Coverage:
+* **Linguistic Logic:** Validates regex normalization, word frequency calculations, and lexical diversity metrics.
+* **Security & Permissions:** Ensures strict object-level access control (e.g., users cannot view or delete others' analysis history).
+* **Service Layer & Mocking:** Utilizes `pytest-mock` to simulate **DuckDB** OLAP connections, allowing for high-speed testing without disk I/O dependency.
+* **File Extraction:** Verifies robust handling of `.txt`, `.pdf`, and `.docx` uploads using Django's `SimpleUploadedFile`.
+
+### Running Tests locally:
+```bash
+pytest
+```
+
 ## 🙏 Acknowledgments
 * **Etymology Sources:** Online Etymology Dictionary for root-word tracking.
 * **Community:** Thanks to the Django and DuckDB communities for the robust library support.
-* **Testing:** Pytest Coming soon 😁
 
 ---
+
 ## 🛣️ Roadmap
 
-- [ ] **Core Architecture:** Dual-Engine (Django + DuckDB) setup.
+- [x] **Core Architecture:** Dual-Engine (Django + DuckDB) setup.
 - [ ] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
 - [ ] **Geospatial Mapping:** Interactive etymology origins via Plotly/Mapbox.
-- [ ] **Forensic Reporting:** PDF/CSV export functionality for text analysis.
-- [ ] **User Accounts:** Private storage for linguistic history.
+- [x] **Forensic Reporting:** PDF/CSV export functionality for text analysis.
+- [x] **User Accounts:** Private storage for linguistic history.
 
 ---
 
