@@ -23,9 +23,12 @@ See the full gallery here:
 ![Main Dashboard](screenshots/analysis_history.png)
 ![View Delete Buttons](screenshots/view_delete_buttons.png)
 
+---
 
 ## 🛠️ Project Architecture
 This project is divided into two main components to balance real-time user interaction with deep-dive analytical processing:
+
+---
 
 ### 1. Interactive Analysis Dashboard (`views.py` & `templates/`)
 The **"Frontend"** logic of the project. It provides a real-time interface for users to explore their text data.
@@ -33,13 +36,15 @@ The **"Frontend"** logic of the project. It provides a real-time interface for u
 * **Instant Linguistic KPIs:** Calculates Lexical Diversity (TTR), Overused Words, and Passive Voice detection on the fly.
 * **User Vault:** A persistent history system allowing users to search, review, and manage their analysis records securely.
 
+--- 
+
 ### 2. Forensic Reporting & Data Engine (`services/` & `models.py`)
 The **"Analytical Backend."** This handles the heavy lifting of data management and document generation.
 * **Dual-State Storage:** Manages persistent user history in **SQLite** while offloading high-speed etymological lookups to a **DuckDB** OLAP engine.
 * **Global Etymology Pipeline:** A custom ingestion layer that maps over 500+ words to global coordinates (Latin, Germanic, Arabic, Sanskrit, and more).
 * **Automated Document Generation:** Compiles findings into professional PDF reports (via **WeasyPrint**) and Word documents (**python-docx**) for offline review.
 
-
+---
 
 ## 📁 File Structure
 * `word_counter/settings.py`: Core configuration for the Django environment.
@@ -47,6 +52,8 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 * `counter/services/seed_origins.py`: Data pipeline script for ingesting the global word library.
 * `counter/services/word_data.json`: The "Source of Truth" containing 500+ global etymology records.
 * `word_vault_analytics.duckdb`: High-performance database for geospatial word lookups.
+
+---
 
 ## 🧰 Tech Stack
 * **Python 3.10** (Development Environment)
@@ -57,6 +64,8 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 * **WeasyPrint / python-docx:** For automated forensic report creation.
 * **Regex:** For high-speed text normalization and cleaning.
 
+---
+
 ## ⚙️ Installation & Local Usage
 To run this project locally:
 1. **Clone the repo:** `git clone https://github.com/reory/Word-Counter-Vault.git`
@@ -64,12 +73,27 @@ To run this project locally:
 3. **Seed the Global Vault:** `python -m counter.services.seed_origins`
 4. **Launch the app:** `python manage.py runserver`
 
+---
+
 ## 🙏 Acknowledgments
 * **Etymology Sources:** Online Etymology Dictionary for root-word tracking.
 * **Community:** Thanks to the Django and DuckDB communities for the robust library support.
 * **Testing:** Pytest Coming soon 😁
 
+---
+## 🛣️ Roadmap
+
+- [ ] **Core Architecture:** Dual-Engine (Django + DuckDB) setup.
+- [ ] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
+- [ ] **Geospatial Mapping:** Interactive etymology origins via Plotly/Mapbox.
+- [ ] **Forensic Reporting:** PDF/CSV export functionality for text analysis.
+- [ ] **User Accounts:** Private storage for linguistic history.
+
+---
+
 ## ⚖️ License
 This project is licensed under the MIT License - see the `LICENSE` file for details.
+
+---
 
 **Built By Roy Peters** [Click here for contact info 😁](https://www.linkedin.com/in/roy-p-74980b382/)
