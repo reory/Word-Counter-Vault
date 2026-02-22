@@ -2,10 +2,10 @@
 
 An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
 
-## 🚀 Live Demo
-[![Watch the Demo](https://img.shields.io/badge/▶_WATCH-DEMO_VIDEO-blue?style=for-the-badge&logo=github)](https://github.com/reory/Word-Counter-Vault/blob/main/demo.mp4)
+## 🎥 Project Walkthrough
+[![Watch the Demo on LinkedIn](https://img.shields.io/badge/LinkedIn-Video_Walkthrough-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/roy-p-74980b382_python-django-datascience-ugcPost-7431321183679045632-peek?utm_source=share&utm_medium=member_desktop&rcm=ACoAAF5yzmkBKYhDCqFaGGMG8mt7ntE88OY67k8)
 
-*Click the badge above to view the full 1:21 walkthrough of the Word Counter Vault.*
+> **Note:** Click the badge above to view the full feature walkthrough and linguistic analysis demo on LinkedIn.
 
 ---
 
