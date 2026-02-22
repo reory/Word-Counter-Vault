@@ -6,7 +6,19 @@ An interactive intelligence dashboard and automated reporting tool built to anal
 Check out the live dashboard here:
 
 ## 📸 Screenshots
-See the full gallery here: `screenshots/`
+See the full gallery here:
+## 📸 Screenshots
+![Main Dashboard](screenshots/user_UI.png)
+![Main Dashboard](screenshots/user_UI2.png)
+![Main Dashboard Map](screenshots/map_of_words_history.png)
+![Main Login](screenshots/login_view.png)
+![PDF Report](screenshots/pdf_report.png)
+![Word Document](screenshots/word_document.png)
+![Chart View](screenshots/chart.png)
+![Indepth UI](screenshots/indepth_UI.png)
+![Main Dashboard](screenshots/analysis_history.png)
+![View Delete Buttons](screenshots/view_delete_buttons.png)
+
 
 ## 🛠️ Project Architecture
 This project is divided into two main components to balance real-time user interaction with deep-dive analytical processing:
