@@ -71,3 +71,5 @@ To run this project locally:
 
 ## ⚖️ License
 This project is licensed under the MIT License - see the `LICENSE` file for details.
+
+**Built By Roy Peters** [Click here for contact info 😁](https://www.linkedin.com/in/roy-p-74980b382/)
