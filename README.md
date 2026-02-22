@@ -11,6 +11,7 @@ See the full gallery here:
 ![Main Dashboard](screenshots/user_UI.png)
 ![Main Dashboard](screenshots/user_UI2.png)
 ![Main Dashboard Map](screenshots/map_of_words_history.png)
+![Main Dashboard Map](screesnhots/map.png)
 ![Main Login](screenshots/login_view.png)
 ![PDF Report](screenshots/pdf_report.png)
 ![Word Document](screenshots/word_document.png)
