@@ -1,250 +1,157 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'counter/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Word Counter</title>
+{% block content %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <!-- Bootstrap CSS -->
-    <link 
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
-      rel="stylesheet"
-    >
-
-    <!-- Your Dark Mode CSS -->
-    <link rel="stylesheet" href="{% static 'counter/css/darkmode_utilities.css' %}">
-
-    <!-- Custom Light Background -->
-    <style>
-        body {
-            background: linear-gradient(
-                to bottom right,
-                #e8f1f8,
-                #f9f9f9
-            );
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-        }
-    </style>
-</head>
-
-<body class="bg-light">
-
-<div class="container py-4">
-
-    <!-- FLASH MESSAGES -->
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      {% endfor %}
-    {% endif %}
-
-    <!-- ANALYSIS RESULT BOX -->
     {% if has_result %}
-    <div class="card mb-3 border-success">
-        <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Analysis Result</h4>
-        </div>
-        <div class="card-body">
-            <p class="fs-5">
-                {{ word_count }} Word{{ word_count|pluralize }} in the text
-            </p>
-            <hr>
-
-            <!-- Collapse Toggle Button -->
-            <button class="btn btn-outline-primary mb-3" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#chartBox">
-                Show / Hide Word Frequency Chart
-            </button>
-
-            <!-- Collapsible Chart Section -->
-            <div id="chartBox" class="collapse">
-                <h5>Word Frequency Chart</h5>
-                <img 
-                  src="{% url 'counter:chart' %}?text={{ text|urlencode }}" 
-                  alt="Word frequency chart" 
-                  class="img-fluid mt-2 mb-3"
-                />
+        <div class="card mb-4 border-primary shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Analysis Result</h4>
+                <span class="badge bg-white text-primary fs-6">{{ word_count }} Words</span>
             </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- SUMMARY CARD -->
-    {% if summary %}
-    <div class="card mt-4 border-info">
-        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Summary</h5>
-
-            <button class="btn btn-light btn-sm"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#summaryBox">
-                Show / Hide
-            </button>
-        </div>
-
-        <div id="summaryBox" class="collapse">
-            <div class="card-body">
-
-                <p><strong>Short Summary:</strong></p>
-                <p>{{ summary }}</p>
-
-                <hr>
-
-                <p><strong>Key Points:</strong></p>
-                <ul>
-                    {% for b in bullets %}
-                        <li>{{ b }}</li>
-                    {% endfor %}
-                </ul>
-
-                <hr>
-
-                <p><strong>Key Topics:</strong></p>
-                <p>{{ topics|join:", " }}</p>
-
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- WRITING QUALITY CARD -->
-    {% if longest_sentence %}
-    <div class="card mt-4 border-warning">
-
-        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Writing Quality Insights</h5>
-
-            <button class="btn btn-dark btn-sm"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#qualityBox">
-                Show / Hide
-            </button>
-        </div>
-
-        <div id="qualityBox" class="collapse">
-            <div class="card-body">
-
-                <p><strong>Longest Sentence:</strong></p>
-                <p>{{ longest_sentence }}</p>
-
-                <hr>
-
-                <p><strong>Vocabulary Richness (TTR):</strong> {{ ttr }}</p>
-
-                <hr>
-
-                <p><strong>Overused Words:</strong></p>
-                <ul>
-                    {% for word, count in overused %}
-                        <li>{{ word }} — {{ count }} times</li>
-                    {% endfor %}
-                </ul>
-
-                <hr>
-
-                <p><strong>Passive Voice Instances:</strong> {{ passive_count }}</p>
-
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <!-- MAIN FORM -->
-    <div class="card border-primary mt-4">
-        <div class="card-body">
-
-            <!-- Dark Mode Toggle -->
-            <button id="themeToggle" class="btn btn-secondary mb-3">
-                Toggle Dark Mode
-            </button>
-
-            <form action="{% url 'counter:home' %}" 
-                  method="POST" 
-                  enctype="multipart/form-data">
-
-                {% csrf_token %}
-
-                <!-- TEXTAREA INPUT -->
-                <div class="mb-3">
-                    <label for="text1" class="form-label">Paste your text here</label>
-                    <textarea 
-                        name="texttocount" 
-                        id="text1" 
-                        rows="8" 
-                        class="form-control"
-                        style="background-color: #f0f5f5;"
-                        placeholder="Enter text to count words"
-                    >{{ text }}</textarea>
-                </div>
-
-                <!-- FILE UPLOAD INPUT -->
-                <div class="mb-3">
-                    <label for="file" class="form-label">Upload a file (TXT or PDF, or DOCX)</label>
-                    <input type="file" name="file" class="form-control">
-                </div>
-
-                <!-- SUBMIT BUTTON -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-25">
-                        Run Counter
+            <div class="card-body text-center">
+                {% if show_chart %}
+                    <button class="btn btn-outline-primary mb-3" data-bs-toggle="collapse" data-bs-target="#chartBox">
+                        <i class="bi bi-bar-chart"></i> View Frequency Chart
                     </button>
-                    
+                    <div id="chartBox" class="collapse">
+                        <hr>
+                        <img src="{% url 'counter:chart' %}?text={{ text|urlencode }}" alt="Chart" class="img-fluid rounded shadow-sm mt-2 mb-3" />
+                    </div>
+                {% else %}
+                    <div class="alert alert-secondary small mb-0">
+                         <i class="bi bi-exclamation-triangle"></i> Text is too large for live charting, but metrics are saved to your Vault!
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if vault_pins %}
+        <div class="card mb-4 border-info shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-geo-alt-fill"></i> Geographic Word Origins</h5>
+            </div>
+            <div class="card-body p-0">
+                <div id="vault-map" style="height: 400px; width: 100%; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;"></div>
+            </div>
+        </div>
+        {{ vault_pins|json_script:"vault-data" }}
+        {% endif %}
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="text-primary border-bottom pb-2"><i class="bi bi-journal-text"></i> Summary</h5>
+                        <p class="card-text text-secondary mb-3" style="font-size: 0.95rem;">{{ summary }}</p>
+                        <h6 class="fw-bold text-dark small">Key Topics:</h6>
+                        <p class="analysis-list">
+                            {% for topic in topics %}{{ topic }}{% if not forloop.last %}, {% endif %}{% empty %}General content{% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="text-primary border-bottom pb-2"><i class="bi bi-lightning-charge"></i> Quality Insights</h5>
+                        <ul class="list-unstyled mb-3">
+                            <li class="mb-2 small"><strong>Type-Token Ratio:</strong> <span class="text-primary">{{ ttr|floatformat:2 }}</span></li>
+                            <li class="mb-2 small"><strong>Passive Voice:</strong> <span class="text-danger">{{ passive_count }}</span></li>
+                            <li class="mb-0 small"><strong>Longest Sentence:</strong></li>
+                            <li class="text-muted italic small">"{{ longest_sentence|truncatechars:80 }}"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card border-primary shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title text-primary m-0"><i class="bi bi-file-earmark-text"></i> New Analysis</h5>
+                <button id="themeToggle" class="btn btn-sm btn-primary">
+                    <i class="bi bi-moon-stars"></i> Dark Mode
+                </button>
+            </div>
+            <form action="{% url 'counter:home' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="text1" class="form-label fw-semibold">Paste Text</label>
+                    <textarea name="texttocount" id="text1" rows="6" class="form-control" style="background-color: #f0f5f5;" placeholder="Start typing...">{{ text }}</textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="fileInput" class="form-label fw-semibold">Or Upload Document</label>
+                    <input type="file" name="file" id="fileInput" class="form-control">
+                </div>
+                <div class="text-center">
+                    <button type="submit" id="runBtn" class="btn btn-primary btn-lg w-50 shadow-sm">Run Counter</button>
+                    <div id="filePrompt" class="text-info mt-3 fw-bold" style="display: none;">
+                        <i class="bi bi-file-check-fill"></i> File detected! Click "Run Counter" to analyze.
+                    </div>
                     {% if has_result %}
-
-                       <!--           PDF EXPORT            -->
-                       <a href="{% url 'counter:export_pdf' %}" 
-                          class="btn btn-outline-secondary mt-3"> 
-                           Download PDF Report 
-                       </a>
-
-                        <!--            DOCX EXPORT         -->
-                       <a href="{% url 'counter:export_docx' %}" 
-                          class="btn btn-outline-secondary mt-3"> 
-                           Download DOCX Report 
-                       </a>
-                       
+                        <div class="mt-4 pt-3 border-top">
+                            <a href="{% url 'counter:export_pdf' %}" class="btn btn-sm btn-outline-secondary me-2">PDF</a>
+                            <a href="{% url 'counter:export_docx' %}" class="btn btn-sm btn-outline-secondary">DOCX</a>
+                        </div>
                     {% endif %}
                 </div>
-
             </form>
-
         </div>
     </div>
+{% endblock %}
 
-</div>
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- Bootstrap JS -->
-<script 
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-</script>
-
-<!-- Dark Mode Toggle Script -->
 <script>
-    const toggleBtn = document.getElementById("themeToggle");
-    const body = document.body;
+    // 1. VAULT MAP LOGIC
+    document.addEventListener('DOMContentLoaded', function() {
+        const vaultDataElement = document.getElementById('vault-data');
+        if (vaultDataElement) {
+            const vaultData = JSON.parse(vaultDataElement.textContent);
+            
+            // Initialize map
+            const map = L.map('vault-map').setView([20, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
 
-    // Load saved theme
-    if (localStorage.getItem("darkMode") === "true") {
-        body.classList.add("dark-mode");
-    }
-
-    toggleBtn.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-
-        // Save preference
-        const isDark = body.classList.contains("dark-mode");
-        localStorage.setItem("darkMode", isDark);
+            if (vaultData.length > 0) {
+                const markers = [];
+                vaultData.forEach(pin => {
+                    const marker = L.marker([pin.lat, pin.lng]).addTo(map);
+                    marker.bindPopup(`
+                        <strong>${pin.word.toUpperCase()}</strong><br>
+                        <small>Origin: ${pin.country} (${pin.root})</small><br>
+                        <p style="margin-top:5px; font-size:12px;">${pin.fact}</p>
+                    `);
+                    markers.push(marker);
+                });
+                
+                // Zoom to fit markers
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.2));
+            }
+        }
     });
-</script>
 
-</body>
-</html>
+    // 2. EXISTING FILE INPUT LOGIC
+    const fileInput = document.getElementById('fileInput');
+    const filePrompt = document.getElementById('filePrompt');
+    const runBtn = document.getElementById('runBtn');
+
+    if(fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                filePrompt.style.display = 'block';
+                runBtn.classList.replace('btn-primary', 'btn-info');
+            } else {
+                filePrompt.style.display = 'none';
+                runBtn.classList.replace('btn-info', 'btn-primary');
+            }
+        });
+    }
+</script>
+{% endblock %}

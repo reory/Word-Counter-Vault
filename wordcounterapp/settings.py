@@ -56,7 +56,7 @@ ROOT_URLCONF = "wordcounterapp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'], # Added for django to find templates.
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -122,3 +122,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+# Page address where users get sent if they try to access a @login_required view
+LOGIN_URL = '/accounts/login/' 
+LOGIN_REDIRECT_URL = '/' # Go to the counter webpage after loggin in.
+LOGOUT_REDIRECT_URL = '/accounts/login' # Where to go after logging out.

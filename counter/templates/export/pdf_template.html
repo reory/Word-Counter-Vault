@@ -92,7 +92,7 @@
         <h2>Word Frequency Chart</h2>
 
         <div class="chart-wrapper">
-            <img src="{{ chart_url }}" class="chart" alt="Word Frequency Chart">
+            <img src="{{ chart_data }}" class="chart" alt="Word Frequency Chart">
         </div>
     <hr style="margin: 20px 0; border: none; border-top: 1px solid #3d3939;">
 
@@ -101,7 +101,7 @@
     <!-- Topics -->
     <div class="section">
         <h2>Detected Topics</h2>
-        <p>{{ topics }}</p>
+        <p>{{ topics|join:", " }}</p>
     </div>
 
     <!-- Word Count -->
@@ -123,10 +123,16 @@
     </div>
 
     <!-- Overused Words -->
-    <div class="section">
-        <h2>Overused Words</h2>
-        <p>{{ overused }}</p>
-    </div>
+   <div class="section">
+    <h2>Overused Words</h2>
+    <ul>
+        {% for word, count in overused %}
+            <li><strong>{{ word }}</strong>: {{ count }} times</li>
+        {% empty %}
+            <li>No significant overuse detected.</li>
+        {% endfor %}
+    </ul>
+</div>
 
     <!-- Passive Voice Count -->
     <div class="section">

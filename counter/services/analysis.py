@@ -1,13 +1,36 @@
-from collections import Counter
+import collections
+# Import the Regular Expression module for advanced text searching and cleaning
 import re
 
+STOP_WORDS = {'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", 
+    "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 
+    'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 
+    'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 
+    'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 
+    'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 
+    'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 
+    'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 
+    'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 
+    'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 
+    'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 
+    'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 
+    'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 
+    'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 
+    've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', 
+    "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 
+    'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 
+    'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 
+    'wouldn', "wouldn't"}
+
 def get_word_frequencies(text: str, limit: int = 10):
+    """Calculates the most frequent words; defaults to a top 10 list."""
 
-    # Lowercase and extract words.
+    # Regex handles punctuation better than other methods.
+    # eg, 'code,' becomes 'code'
     words = re.findall(r"\b[a-zA-Z']+\b", text.lower())
+    
+    # Create a new list excluding common 'filler' words (the, a, is, etc.)
+    filtered_words = [w for w in words if w not in STOP_WORDS]
 
-    # Count frequencies.
-    counter = Counter(words)
-
-    # Return the top N words.
-    return counter.most_common(limit)
+    # Count word occurrences and return the top 'limit' (e.g., top 10) results
+    return collections.Counter(filtered_words).most_common(limit)

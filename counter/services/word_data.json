@@ -1,0 +1,100 @@
+{
+  "hubs": [
+    {
+      "origin": "Germanic / Old English",
+      "country": "Germany",
+      "lat": 51.16,
+      "lng": 10.45,
+      "fact": "These are the 'heart' words of English—fundamental things like 'house', 'world', and 'bread'.",
+      "words": ["house", "world", "bread", "water", "friend", "night", "earth", "stone", "green", "winter", "summer", "morning", "evening", "brother", "sister", "mother", "father", "think", "drink", "sleep", "walk", "speak", "strong", "word", "hand", "heart", "life", "death", "light", "dark", "fast", "slow", "old", "young"]
+    },
+    {
+      "origin": "Latin",
+      "country": "Italy",
+      "lat": 41.87,
+      "lng": 12.56,
+      "fact": "Latin provides English with its sophisticated, academic, and technical vocabulary.",
+      "words": ["abstract", "agenda", "annual", "audio", "benefit", "caveat", "census", "data", "dictate", "ego", "exit", "focus", "index", "item", "major", "medium", "minor", "notary", "orbit", "pauper", "premium", "quota", "radius", "series", "status", "ultra", "vacuum", "veto", "via", "vice", "nature", "science", "office", "music", "vision", "video", "memory", "legal"]
+    },
+    {
+      "origin": "Old Norse",
+      "country": "Norway",
+      "lat": 60.47,
+      "lng": 8.46,
+      "fact": "Viking settlers brought these everyday 'action' words into the English language.",
+      "words": ["anger", "awkward", "bag", "bait", "ball", "band", "bark", "bash", "bask", "birth", "blunder", "bulk", "cake", "club", "crawl", "die", "dirt", "dregs", "egg", "flat", "flaw", "freckle", "gaze", "gift", "glare", "gust", "hell", "husband", "ill", "kick", "lad", "law", "leg", "link", "litmus", "loft", "loose", "low", "lurk", "mace", "meek", "mired", "muck", "muggy", "odd", "outlaw", "plow", "race", "raft", "ransack", "root", "rotten", "sale", "scant", "scarf", "scold", "score", "scrap", "seat", "seem", "shake", "skate", "skill", "skin", "skip", "skirt", "skull", "sky", "slant", "slaughter", "sly", "snare", "snub", "stack", "stagger", "steak", "sway", "thrift", "thrust", "tight", "trust", "ugly", "vast", "want", "weak", "window"]
+    },
+    {
+      "origin": "French",
+      "country": "France",
+      "lat": 46.22,
+      "lng": 2.21,
+      "fact": "After the Norman Conquest in 1066, French became the language of the English court and cuisine.",
+      "words": ["art", "beauty", "button", "castle", "caution", "chance", "change", "chief", "choice", "city", "clear", "coast", "color", "count", "country", "course", "court", "cover", "danger", "debt", "degree", "delay", "design", "dinner", "doubt", "dozen", "dress", "duty", "error", "face", "fact", "fault", "flower", "force", "form", "forest", "fruit", "future", "glory", "group", "guard", "guide", "honor", "hour", "image", "joy", "judge", "justice", "labor", "language", "large", "limit", "line", "manner", "market", "master", "measure", "money", "mountain", "move", "nation", "number", "order", "paint", "pair", "pardon", "part", "party", "pass", "past", "pay", "peace", "people", "person", "piece", "place", "plain", "plan", "plant", "pleasure", "point", "poor", "power", "present", "price", "prison", "profit", "promise", "proof", "pure", "quality", "question", "rage", "reason", "receipt", "record", "regret", "reply", "report", "request", "respect", "rest", "rich", "river", "rule", "safe", "scene", "second", "secret", "sense", "serve", "service", "sign", "simple", "sir", "sort", "sound", "space", "spirit", "state", "story", "strange", "study", "stuff", "style", "sugar", "support", "sure", "table", "task", "taste", "term", "ticket", "title", "touch", "tower", "train", "travel", "treat", "trouble", "uncle", "unit", "use", "value", "view", "village", "voice", "wait", "waste"]
+    },
+    {
+      "origin": "Ancient Greek",
+      "country": "Greece",
+      "lat": 37.98,
+      "lng": 23.72,
+      "fact": "Greek provided the vocabulary for philosophy, logic, and early science.",
+      "words": ["alphabet", "archive", "biology", "chaos", "character", "cycle", "demo", "echo", "history", "idea", "logic", "ocean", "phone", "planet", "python", "theory", "rhythm", "method", "system", "program", "physics", "telescope", "microscope", "strategy", "energy", "dynamic"]
+    },
+    {
+      "origin": "Arabic",
+      "country": "Saudi Arabia",
+      "lat": 23.88,
+      "lng": 45.07,
+      "fact": "Many trade and scientific terms entered English through medieval scholars.",
+      "words": ["admiral", "alchemy", "alcohol", "alcove", "algebra", "algorithm", "almanac", "amber", "arsenal", "artichoke", "assassin", "aubergine", "azure", "benzine", "borax", "candy", "carat", "caraway", "carmine", "checkmate", "cipher", "coffee", "cotton", "crimson", "drub", "elixir", "fellah", "garble", "gazelle", "ghoul", "giraffe", "guitar", "harem", "hashish", "hazard", "jar", "jasmine", "jumper", "kismet", "lemon", "lime", "lute", "magazine", "massa", "mattress", "mocha", "monsoon", "mummy", "muslin", "nadir", "orange", "safari", "saffron", "sahara", "sequin", "shampoo", "sherbet", "sofa", "sorbet", "spinach", "sugar", "sumac", "syrup", "talisman", "tamarind", "tare", "tariff", "tuna", "vizier", "zero", "zenith"]
+    },
+    {
+      "origin": "Nahuatl (Aztec) / Quechua (Inca)",
+      "country": "Mexico / Peru",
+      "lat": 19.43,
+      "lng": -99.13,
+      "fact": "Indigenous languages of the Americas gave English its names for unique plants, animals, and foods.",
+      "words": ["avocado", "chocolate", "tomato", "chili", "coyote", "chipotle", "cocoa", "guacamole", "potato", "llama", "condor", "jerky", "pampa", "quinine", "guano"]
+    },
+    {
+      "origin": "Sanskrit / Hindi",
+      "country": "India",
+      "lat": 20.59,
+      "lng": 78.96,
+      "fact": "India provided a massive array of words related to trade, spiritual life, and nature.",
+      "words": ["avatar", "bandana", "bungalow", "cheetah", "chutney", "cot", "dinghy", "guru", "jungle", "karma", "loot", "nirvana", "pajamas", "punch", "shampoo", "thug", "veranda", "yoga"]
+    },
+    {
+      "origin": "Bantu / West African",
+      "country": "West Africa",
+      "lat": 9.08,
+      "lng": 8.67,
+      "fact": "Many rhythm, food, and cultural words entered English through the African Diaspora.",
+      "words": ["banana", "banjo", "chimpanzee", "gumbo", "jazz", "jive", "jumbo", "mumbo", "okra", "tote", "yam", "zombie"]
+    },
+    {
+      "origin": "Cantonese / Mandarin",
+      "country": "China",
+      "lat": 35.86,
+      "lng": 104.19,
+      "fact": "Trade along the Silk Road and tea routes brought many Chinese terms into English.",
+      "words": ["ketchup", "tea", "typhoon", "silk", "kowtow", "kungfu", "dimsum", "ginseng", "wok", "zen", "fengshui"]
+    },
+    {
+      "origin": "Persian",
+      "country": "Iran",
+      "lat": 32.42,
+      "lng": 53.68,
+      "fact": "Ancient Persian is the source of many words for luxury, gardens, and colors.",
+      "words": ["bazaar", "caravan", "checkmate", "jasmine", "khaki", "lemon", "magic", "pajama", "paradise", "pasha", "pistachio", "pyjama", "rook", "scarlet", "spinach", "tabby", "taffeta", "tulip"]
+    },
+    {
+      "origin": "Indigenous Australian",
+      "country": "Australia",
+      "lat": -25.27,
+      "lng": 133.77,
+      "fact": "Australian languages (like Dharug and Gamilaraay) named the unique wildlife found nowhere else.",
+      "words": ["kangaroo", "koala", "boomerang", "wallaby", "wombat", "budgerigar", "dingo"]
+    }
+  ]
+}

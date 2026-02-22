@@ -1,260 +1,236 @@
-import matplotlib
-matplotlib.use("Agg") # Forces matplotlib to use no GUI or Tkinter. causes issues.
-import matplotlib.pyplot as plt
-
-from django.shortcuts import render
-from django.contrib import messages
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.urls import reverse
-from django.template.loader import render_to_string
+from django.shortcuts import redirect, render
 from django.templatetags.static import static
-
-from docx import Document
-from docx.shared import Inches
-
-from weasyprint import HTML
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from typing import Any
-from io import BytesIO
-
-from .services.text_extractors import(
-    extract_text_from_txt,
-    extract_text_from_pdf,
-    extract_text_from_docx,
-)
-from .services.analysis import get_word_frequencies
+from .services.text_extractors import get_text_from_uploaded_file
 from .services.summarizer import generate_summary
-from .services.quality_insights import analyze_quality
+from .services.quality_insights import analyze_quality, get_basic_metrics
+from .services import exporters, word_selectors
+from .models import AnalysisRecord
+import duckdb
+import os
+import re
 
+
+# A "decorator" that forces the user to log in before they can access this view.
+# User will not see this view until they are logged-in. 
+@login_required 
 def counter(request):
+    
+    """Main view."""
     context: dict[str, Any] = {"on": "active"}
     
-    text = request.session.pop("analysis_text", "")
-
+    # Check if we have text from a previous redirect or current session.
+    text = request.session.get("analysis_text", "")
     if request.method == "POST":
         
         # Text from text area.
         text = request.POST.get("texttocount", "")
+        
         # Text from file upload.
         if "file" in request.FILES:
             uploaded_file = request.FILES["file"]
-            filename = uploaded_file.name.lower()
-            
-            if filename.endswith(".txt"):
-                text = extract_text_from_txt(uploaded_file)
-            
-            elif filename.endswith("pdf"):
-                text = extract_text_from_pdf(uploaded_file)
 
-            elif filename.endswith(".docx"):
-                text = extract_text_from_docx(uploaded_file)
+            # 1. DELEGATE TO EXTRACTOR SERVICE
+            text = get_text_from_uploaded_file(uploaded_file)
+
+            if text:
+                messages.success(request, f"'{uploaded_file.name}' analyzed successfully!")
+            else:
+                messages.error(request, f'Unsupported file type: {uploaded_file.name}')
+                return redirect('counter:home')              
+                
+        # Reset the save guard for the new data.
+        request.session['is_saved'] = False
 
         # Store text in session and redirect.
         request.session["analysis_text"] = text
         return redirect("counter:home")
         
-        # Analysis metrics.
+    # Analysis metrics. (Runs on GET after redirect.)
     if text:
-        # Run analysis.
-        word_count = len(text.split())
-        char_count = len(text)
-        sentence_count = text.count(".") + text.count("!") + text.count("?")
-        paragraph_count = len([p for p in text.split("\n") if p.strip()])
-        reading_time = max(1, round(word_count / 200))
-        
-        # Context block.
-        context["text"] = text
-        context["word_count"] = word_count
-        context["char_count"] = char_count
-        context["sentence_count"] = sentence_count
-        context["paragraph_count"] = paragraph_count
-        context["reading_time"] = reading_time
-        context["has_result"] = True
-        
-        # Summary data from summarizer.py
+        # 2. DELEGATE LINGUISTIC MATH TO SERVICES
+        metrics = get_basic_metrics(text)
         summary_data = generate_summary(text)
-        
-        context["summary"] = summary_data["summary"]
-        context["bullets"] = summary_data["bullets"]
-        context["topics"] = summary_data["topics"]
-        
-        # Summary of data on quality of text.
-        quality = analyze_quality(text)
+        quality_data = analyze_quality(text)
 
+        # Hook up the DuckDB.
+
+        # Lowercase the text and remove everything except letters/numbers. 
+        clean_text = text.lower()
+        # regex finds only letters and ignores commas, periods, etc.
+        words_only = re.findall(r'\b\w+\b', clean_text)
+        # use set() to get unique words only (faster for Duckdb)
+        all_unique_words = list(set(words_only))
+        # Check the vault for all these words.
+        vault_pins = get_value_matches(all_unique_words)
+        
+        # Update context cleanly
+        context.update(metrics) # Adds word_count, sentence_count, paragraph_count, etc.
         context.update({
-            "longest_sentence": quality["longest_sentence"],
-            "ttr": quality["ttr"],
-            "overused": quality["overused"],
-            "passive_count": quality["passive_count"]
+            "text": text,"has_result": True,
+            "vault_pins": vault_pins,
+            "show_chart": len(text) < 30000,
+            "summary": summary_data["summary"],"bullets": summary_data["bullets"],
+            "topics": summary_data["topics"],
+            "longest_sentence": quality_data["longest_sentence"],
+            "ttr": quality_data["ttr"],"overused": quality_data["overused"],
+            "passive_count": quality_data["passive_count"]
         })
+
+        # Save details of the logged in user into the database.
+        if request.user.is_authenticated:
+            if not request.session.get("is_saved"):
+                
+                record_title = "Manual Entry"
+                if "file" in request.FILES:
+                    record_title = request.FILES["file"].name
+
+                AnalysisRecord.objects.create(
+                    user=request.user,title=record_title,original_text=text,
+                    word_count=metrics['word_count'], # Extracted from metrics dictionary
+                    summary=summary_data['summary'],topics=summary_data['topics'],
+                    bullets=summary_data['bullets'],
+                    longest_sentence=quality_data['longest_sentence'],
+                    ttr=quality_data['ttr'],overused=quality_data['overused'],
+                    passive_count=quality_data['passive_count']
+                )
+                # Mark as saved so a refresh does not duplicate the entry.
+                request.session['is_saved'] = True
+
         # Save everything to session for a PDF export.
-        request.session["analysis_text"] = text 
-        request.session["summary"] = summary_data["summary"] 
-        request.session["bullets"] = summary_data["bullets"] 
-        request.session["topics"] = summary_data["topics"] 
-        request.session["word_count"] = word_count 
-        request.session["longest_sentence"] = quality["longest_sentence"] 
-        request.session["ttr"] = quality["ttr"] 
-        request.session["overused"] = quality["overused"] 
-        request.session["passive_count"] = quality["passive_count"]
-
-        # Message for the user.
-        messages.success(request, "File uploaded and analyzed successfully!")
-
+        for key in ["summary", "bullets", "topics", "word_count", 
+                    "longest_sentence", "ttr", "overused", "passive_count"]:
+            request.session[key] = context.get(key)  
     return render(request, "counter/counter.html", context)
 
+def register(request):
+    """A registration form for a user details to be saved to the DB.."""
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            # Save the new user to the database.
+            form.save()
+            # Get the username to personalize the success message.
+            username = form.cleaned_data.get('username')
+            messages.success(
+                request, f'Account created for {username}! Please log in.')
+            return redirect('login')
+        
+    else:
+        # If they are just visiting the page, show an empty form.
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+def export_docx(request, pk=None):
+    """
+    Export the PDF document for the user, either from the current session
+    or the vault (database).
+    """
+    # 1. Gather data using the coordinator
+    data = exporters.get_export_data(request.user, pk, request.session)
+
+    # 2. Generate and return
+    docx_bytes = exporters.generate_docx_report(data)
+    response = HttpResponse(docx_bytes, 
+                            content_type="application/vnd.openxmlformats-"
+                            "officedocument.wordprocessingml.document")
+    response["Content-Disposition"] = "attachment; filename=analysis_report.docx"
+    return response
+
+
+def export_pdf(request, pk=None):
+    """Export the WORD document for the user."""
+
+    # Gather data using the coordinator
+    data = exporters.get_export_data(request.user, pk, request.session)
+    data[
+        'logo_url'] = request.build_absolute_uri(static(
+            'counter/img/python_developer.png'))
+    
+    # Generate and return
+    pdf_bytes = exporters.generate_pdf_report(data)
+    response = HttpResponse(pdf_bytes, content_type="application/pdf")
+    response['Content-Disposition'] = 'attachment; filename=analysis_report.pdf'
+    return response
+
 def word_frequency_chart(request):
-
+    """
+    A thin wrapper that fetches text from the URL 
+    and returns a PNG from the service layer.
+    """
     text = request.GET.get("text", "")
-
     if not text.strip():
         return HttpResponse("No text provided", status=400)
     
-    # Get top 10 words.
-    freq = get_word_frequencies(text)
-    words = [w for w, _ in freq]
-    counts = [c for _, c in freq]
-        
-    # Create the chart.
-    plt.figure(figsize=(8, 4))
-    plt.bar(words, counts, color="#2D2D35FF")
-    plt.title("Top 10 Most Common Words")
-    plt.xlabel("Words")
-    plt.ylabel("Frequency")
-    plt.tight_layout()
-   
+    # We use the existing chart logic now moved to exporters or a visuals service
+    chart_bytes = exporters.generate_word_frequency_chart_image(text)
     
-    # Save to memory.
-    buffer = BytesIO()
-    plt.savefig(buffer, format="png")
-    plt.close()
-    buffer.seek(0)
+    return HttpResponse(chart_bytes.getvalue(), content_type="image/png")
 
-    return HttpResponse(buffer.getvalue(), content_type="image/png")
-
-from io import BytesIO
-import matplotlib.pyplot as plt
-from docx.shared import Inches
-
-def generate_word_frequency_chart_image(text):
-    """This is for the Word docx chart."""
-    freq = get_word_frequencies(text)
-    words = [w for w, _ in freq]
-    counts = [c for _, c in freq]
-
-    plt.figure(figsize=(8, 4))
-    plt.bar(words, counts, color="#2D2D35FF")
-    plt.title("Top 10 Most Common Words")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-
-    buffer = BytesIO()
-    plt.savefig(buffer, format="png")
-    plt.close()
-    buffer.seek(0)
-
-    return buffer
-
-def export_pdf(request):
-
-    logo_url = request.build_absolute_uri(static("counter/img/python_developer.png"))
+@login_required
+def history(request):
+    """
+    Fetches all analysis records for the current user,
+    ordered by newest first.
+    """
+    query = request.GET.get('q', "")
+    records = word_selectors.get_user_history(request.user, query)
+    return render(request, 'counter/history.html', {'records': records})
     
-    #Collect the data you want to include in the PDF.
-    # Pull everything from the session.
-    context = {
-        "text": request.session.get("analysis_text"),
-        "summary": request.session.get("summary"),
-        "bullets": request.session.get("bullets"),
-        "topics": request.session.get("topics"),
-        "word_count": request.session.get("word_count"),
-        "longest_sentence": request.session.get("longest_sentence"),
-        "ttr": request.session.get("ttr"),
-        "overused": request.session.get("overused"),
-        "passive_count": request.session.get("passive_count"),
-        "chart_url": request.build_absolute_uri(
-            reverse("counter:chart") 
-            + f"?text={request.session.get('analysis_text')}"
-        ),
-        "logo_url": logo_url,
-    }
-    
-    # Render the HTML template with the context.
-    html_string = render_to_string("export/pdf_template.html", context)
-    # Convert HTML to PDF.
-    html = HTML(string=html_string)
-    pdf_bytes = html.write_pdf()
-    # Return as a downloadable file.
-    response = HttpResponse(pdf_bytes, content_type="application/pdf")
-    response ["Content-Disposition"] = "attachment; filename=analysis_report.pdf"
-    return response
+@login_required
+def history_detail(request, pk):
+    """
+    Fetches a specific analysis record by its primary key (pk)
+    Ensures the record belongs to the logged-in user.
+    """
+    record = word_selectors.get_record_for_user(request.user, pk)
+    return render(request, 'counter/analysis_detail.html', {'record': record})
 
-def export_docx(request):
+@login_required
+def delete_analysis(request, pk):
+    # Fetch the record or 404 if it doesn't exist/or belong to the user.
 
-    # Pull everything for the session.
-    text = request.session.get("analysis_text")
-    summary = request.session.get("summary") 
-    bullets = request.session.get("bullets") 
-    topics = request.session.get("topics") 
-    word_count = request.session.get("word_count") 
-    longest_sentence = request.session.get("longest_sentence") 
-    ttr = request.session.get("ttr") 
-    overused = request.session.get("overused") 
-    passive_count = request.session.get("passive_count")
+    # Fetch the specific record, 
+    # ensuring it actually belongs to the current user
+    record = word_selectors.get_record_for_user(request.user, pk)
+    # Only proceed with deletion if the user explicitly submitted a form (POST)
+    if request.method == 'POST':
+        word_selectors.delete_record(record)
+        messages.success(request, 'Record deleted successfully!')
+    # Send the user back to the history list regardless of the outcome
+    return redirect("counter:history")
 
-    # Create the word document.
-    doc = Document()
+def get_value_matches(word_list):
+    """Connects to DuckDB and returns a list of dictionaries
+    for words that exist in our "origins" table"""
 
-    # Title.
-    doc.add_heading("Word Counter Report", level=1)
+    db_path = os.path.join(settings.BASE_DIR, 'word_vault_analytics.duckdb')
 
-    # Word count.
-    doc.add_heading("Word Count", level=2)
-    doc.add_paragraph(str(word_count))
+    # We use a context manager to handle the connection safely.
+    with duckdb.connect(db_path, read_only=True) as con:
+        # Lets us pass a python list directly.
+        results = con.execute("""
+            SELECT word, root, country, lat, lng, fact
+            FROM origins
+            WHERE word IN ?
+        """, [word_list]).fetchall()
 
-    # Summary.
-    doc.add_heading("Summary", level=2)
-    doc.add_paragraph(summary)
+    # Turn the raw tuples into a clean list of dicts for our JS map.
+    return [
+        {
+            'word': r[0],
+            'root': r[1],
+            'country': r[2],
+            'lat': r[3],
+            'lng': r[4], 
+            'fact': r[5]       
+        } for r in results
+    ]
 
-    # Bullets.
-    doc.add_heading("Key Points", level=2)
-    for b in bullets:
-        doc.add_paragraph(b, style="List Bullet")
-
-    # Word frequency chart
-    doc.add_heading("Word Frequency Chart", level=2)
-    chart_image = generate_word_frequency_chart_image(text)
-    doc.add_picture(chart_image, width=Inches(6))
-    
-    #Center the image.
-    doc.paragraphs[-1].alignment = 1
-
-    # Topics.
-    doc.add_heading("Detected Topics", level=2)
-    for t in topics:
-        doc.add_paragraph(t, style="List Bullet")
-
-    # Quality Insights.
-    doc.add_heading("Quality Insights", level=2)
-    doc.add_paragraph(f"Longest Sentence: {longest_sentence}")
-    doc.add_paragraph(f"Type-Token Ratio: {ttr}") 
-    doc.add_heading("Overused Words", level=3)
-    for word, count in overused:
-        doc.add_paragraph(f"{word} - {count} times", style="List Bullet") 
-    doc.add_paragraph(f"Passive Voice Count: {passive_count}")
-    
-    # Original Text.
-    doc.add_heading("Original Text", level=2) 
-    doc.add_paragraph(text) 
-    
-    # Save to memory.
-    from io import BytesIO 
-    buffer = BytesIO() 
-    doc.save(buffer) 
-    buffer.seek(0) 
-    
-    # Return as download. 
-    response = HttpResponse(
-        buffer.getvalue(), 
-        content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document" ) 
-    response["Content-Disposition"] = "attachment; filename=analysis_report.docx" 
-    return response

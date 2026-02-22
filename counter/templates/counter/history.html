@@ -1,0 +1,98 @@
+{% extends 'counter/base.html' %}
+
+{% block extra_css %}
+<style>
+    /* Specific styles for the History Table */
+    .table-container { background: white; border-radius: 12px; overflow: hidden; }
+    
+    /* Dark mode adjustments for the table */
+    .dark-mode .table-container { background: #2b2b2b; border: 1px solid #444; }
+    .dark-mode .table { color: #e9ecef; }
+    .dark-mode .table-hover tbody tr:hover { background-color: #3d3d3d; color: #fff; }
+    .dark-mode .text-dark { color: #f8f9fa !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3">
+        <a href="{% url 'counter:home' %}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+        <h2 class="text-primary fw-bold m-0"><i class="bi bi-archive"></i> Analysis History</h2>
+    </div>
+    
+    <button id="themeToggle" class="btn btn-sm btn-primary">
+        <i class="bi bi-moon-stars"></i> Dark Mode
+    </button>
+</div>
+
+<div class="mb-4">
+    <form method="GET" action="{% url 'counter:history' %}" class="d-flex gap-2">
+        <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">
+                <i class="bi bi-search text-muted"></i>
+            </span>
+            <input type="text" name="q" class="form-control border-start-0 ps-0" 
+                   placeholder="Search by title or text..." value="{{ query }}">
+        </div>
+        <button type="submit" class="btn btn-primary px-4 shadow-sm">Search</button>
+        {% if query %}
+            <a href="{% url 'counter:history' %}" class="btn btn-outline-secondary">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="table-container shadow-sm">
+    <table class="table table-hover mb-0">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col" class="ps-4">Date</th>
+                <th scope="col">Snippet / File</th>
+                <th scope="col">Word Count</th>
+                <th scope="col" class="text-end pe-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td class="ps-4 text-muted small">
+                    {{ record.uploaded_at|date:"M d, Y" }} <br>
+                    <span class="text-secondary" style="font-size: 0.75rem;">{{ record.uploaded_at|time:"H:i" }}</span>
+                </td>
+                <td class="fw-semibold text-dark">
+                    {{ record.original_text|truncatechars:40 }}
+                </td>
+                <td>
+                    <span class="text-secondary fw-medium">
+                        {{ record.word_count }}
+                    </span>
+                </td>
+                <td class="text-end pe-4">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'counter:history_detail' record.pk %}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                        
+                        <form action="{% url 'counter:delete_analysis' record.pk %}" method="POST" onsubmit="return confirm('Are you sure?');" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center py-5">
+                    <i class="bi bi-folder2-open display-4 text-muted"></i>
+                    <p class="text-muted mt-2">No records found in the vault yet.</p>
+                    <a href="{% url 'counter:home' %}" class="btn btn-primary btn-sm shadow-sm">Run your first analysis</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

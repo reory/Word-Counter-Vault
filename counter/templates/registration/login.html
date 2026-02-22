@@ -1,0 +1,47 @@
+{% extends 'counter/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-dark"><i class="bi bi-cpu text-primary"></i> Word Counter Vault</h2>
+            <p class="text-muted">Enter your credentials to access the library</p>
+        </div>
+        
+        <div class="card shadow-sm mx-auto border-0" style="max-width: 400px; border-radius: 12px;">
+            <div class="card-body p-4">
+                {% if form.errors %}
+                    <div class="alert alert-danger py-2 small">
+                        Invalid username or password. Please try again.
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label small fw-bold">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text small">{{ field.help_text }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mt-2 shadow-sm">
+                        Sign In
+                    </button>
+                </form>
+            </div>
+            <div class="card-footer bg-white border-0 text-center pb-4">
+                <p class="small text-muted mb-0">Need an account? 
+                    <a href="{% url 'counter:register' %}" class="text-decoration-none text-primary fw-bold">Sign Up here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

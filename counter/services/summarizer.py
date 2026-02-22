@@ -1,7 +1,12 @@
+import re
+from collections import Counter
+from .analysis import STOP_WORDS
+
 def generate_summary(text: str) -> dict:
 
-    # Split into sentences.
-    sentences = [s.strip() for s in text.split(".") if s.strip()]
+    # This splits on . ! or ? ONLY if followed by a space.
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+    sentences = [s.strip() for s in sentences if s.strip()]
 
     if not sentences:
         return {
@@ -10,20 +15,19 @@ def generate_summary(text: str) -> dict:
             "topics": []
         }
     
-    # Short summary. first 2 sentences - fallback to 1
-    summary = " . ".join(sentences[:2]) + "."
+    # Short summary. first 2 sentences.
+    summary = " ".join(sentences[:2])
 
     # Bullet points = first 4 sentences
-    bullets = [s + "." for s in sentences[:4]]
+    bullets = sentences[:4]
 
-    # Topics = Most common words (simply heuristic)
-    words = text.lower().split()
-    stopwords = {"the", "and", "to", "a", "of", 
-                 "in", "is", "it", "that", "for", "on", "with"}
-    filtered = [w for w in words if w not in stopwords and len(w) > 3]
+    # Topics = Most common words.
+    words = re.findall(r"\b[a-zA-Z']+\b", text.lower())
+    
+    # Filter using the master STOP_WORDS list.
+    filtered = [w for w in words if w not in STOP_WORDS and len(w) > 2]
 
     # Count frequencies.
-    from collections import Counter
     common = Counter(filtered).most_common(5)
     topics = [w for w, _ in common]
 
