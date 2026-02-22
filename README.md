@@ -3,10 +3,7 @@
 An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
 
 ## 🚀 Live Demo
-Check out the live dashboard here:
-<p align="center">
-  <video src="video/django_vault.mp4" width="100%" autoplay loop muted playsinline></video>
-</p>
+<video src="https://github.com/reory/Word-Counter-Vault/raw/main/video/django_vault.mp4" width="100%" controls muted autoplay loop></video>
 
 ## 📸 Screenshots
 See the full gallery here:
