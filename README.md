@@ -4,7 +4,7 @@ An interactive intelligence dashboard and automated reporting tool built to anal
 
 ## 🚀 Live Demo
 <p align="center">
-  <video src="video/django_vault.mp4" width="100%" controls muted autoplay loop>
+  <video src="video/demo.mp4" width="100%" controls muted autoplay loop>
     Your browser does not support the video tag.
   </video>
 </p>
