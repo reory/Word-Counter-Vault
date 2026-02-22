@@ -59,7 +59,7 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 
 ## ⚙️ Installation & Local Usage
 To run this project locally:
-1. **Clone the repo:** `git clone https://github.com/yourusername/word-counter-vault.git`
+1. **Clone the repo:** `git clone https://github.com/reory/word-counter-vault.git`
 2. **Install dependencies:** `pip install -r requirements.txt`
 3. **Seed the Global Vault:** `python -m counter.services.seed_origins`
 4. **Launch the app:** `python manage.py runserver`
