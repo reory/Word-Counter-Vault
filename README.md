@@ -1,5 +1,21 @@
 # 📚 Word Counter Vault — Full-Stack Linguistic Analysis Suite
 
+<p align="center">
+
+  <!-- Core Tech -->
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
+  <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Folium-77B829?style=for-the-badge&logo=leaflet&logoColor=white" />
+  <img src="https://img.shields.io/badge/DuckDB-FFF000?style=for-the-badge&logo=duckdb&logoColor=000000" />
+
+  <!-- Repo Info -->
+  <img src="https://img.shields.io/github/last-commit/reory/Word-Counter-Vault?style=for-the-badge" />
+  <img src="https://img.shields.io/github/repo-size/reory/Word-Counter-Vault?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
+
+</p>
+
 An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
 
 ## 🎥 Project Walkthrough
