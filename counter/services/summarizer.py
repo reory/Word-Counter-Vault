@@ -3,6 +3,7 @@ from collections import Counter
 from .analysis import STOP_WORDS
 
 def generate_summary(text: str) -> dict:
+    """Produce a concise summary of the input text as a dictionary."""
 
     # This splits on . ! or ? ONLY if followed by a space.
     sentences = re.split(r'(?<=[.!?])\s+', text)

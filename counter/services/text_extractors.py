@@ -2,11 +2,15 @@ from PyPDF2 import PdfReader
 from docx import Document
 
 def extract_text_from_txt(file) -> str:
-    
+    """Read a txt.file and return its extracted text."""
+
     # Read the raw file bytes, then convert them into a readable string.
     return file.read().decode("utf-8", errors="ignore")
 
 def extract_text_from_pdf(file) -> str:
+    """Read a PDF object and return its extracted text."""
+    
+    # load the PDF file into a reader object for text extraction.
     reader = PdfReader(file)
     text = []
     

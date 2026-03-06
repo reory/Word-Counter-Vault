@@ -33,6 +33,7 @@ def get_basic_metrics(text: str) -> dict:
     }
 
 def analyze_quality(text: str) -> dict:
+    """Evaluate the input text and return metrics as a dictionary."""
     
     # Split into sequences.
     sentences = re.split(r'(?<=[.!?])\s+', text)

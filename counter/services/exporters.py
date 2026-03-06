@@ -79,6 +79,7 @@ def generate_pdf_report(context):
 
 def generate_word_frequency_chart_image(text):
     """Internal helper for Word doc chart generation."""
+
     freq = get_word_frequencies(text)
     words = [w for w, _ in freq]
     counts = [c for _, c in freq]
@@ -117,7 +118,7 @@ def generate_docx_report(data):
     doc.add_heading('Word Frequency Chart', level=2)
     chart_image = generate_word_frequency_chart_image(data.get('text', ''))
     doc.add_picture(chart_image, width=Inches(6))
-    doc.paragraphs[-1].alignment = 1
+    doc.paragraphs[-1].alignment = 1 #type:ignore
 
     # Quality Insights
     doc.add_heading('Quality Insights', level=2)

@@ -11,6 +11,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wordcounterapp.settings')
 django.setup()
 
 def seed_vault():
+    """Populate the database with data and specific configurations."""
 
     # Define paths.
     db_path = os.path.join(settings.BASE_DIR, 'word_vault_analytics.duckdb')

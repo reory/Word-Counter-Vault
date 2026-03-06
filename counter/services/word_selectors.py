@@ -20,8 +20,10 @@ def get_user_history(user, search_query=""):
 
 def get_record_for_user(user, pk):
     """Securley fetches a record owned by a specific user."""
+    
     return get_object_or_404(AnalysisRecord, pk=pk, user=user)
 
 def delete_record(record):
     """Encapsulates the deleltion logic."""
+
     record.delete()
