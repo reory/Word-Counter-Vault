@@ -17,7 +17,6 @@ staticfiles/
 media/
 
 # Large Media
-*.mp4
 *.mov
 video/
 
