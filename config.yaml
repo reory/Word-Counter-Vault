@@ -1,0 +1,37 @@
+# SOURCE & DESTINATION
+repo_path: "."
+output_dir: "./ai_analysis"
+
+# THE FILTERS: Only grab what matters for logic
+include_patterns:
+  - "counter/**/*.py"      # app logic
+  - "wordcounterapp/*.py"  # project settings
+  - "templates/**/*.html"  # frontend
+  - "*.md"                 # Documentation
+  - "pytest.ini"           # Testing config
+
+# THE IGNORES: The "Double-Lock"
+skip_dirs:
+  - ".git"                 
+  - "venv"
+  - ".venv"
+  - "__pycache__"
+  - "migrations"
+  - "staticfiles"
+  - "media"
+  - "screenshots"          
+
+# THE SCHEMA KEYS
+skip_patterns:
+  - "db.sqlite3"
+  - "*.duckdb"             
+  - "*.pyc"
+  - "manage.py"
+  - ".git/*"               # Extra protection
+
+# THE LIMITS
+max_file_size: 10485760  
+max_words: 300000
+
+# LOGGING
+verbose: true

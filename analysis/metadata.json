@@ -1,0 +1,338 @@
+{
+    "processed_files": [
+        {
+            "path": "config.yaml",
+            "chunks": 1,
+            "size": 803,
+            "lines": 37,
+            "words": 92
+        },
+        {
+            "path": "ai_analysis\\hashes.json",
+            "chunks": 1,
+            "size": 5461,
+            "lines": 72,
+            "words": 142
+        },
+        {
+            "path": "ai_analysis\\metadata.json",
+            "chunks": 1,
+            "size": 91167,
+            "lines": 1644,
+            "words": 6428
+        },
+        {
+            "path": "ai_analysis\\remaining\\chunk_0.txt",
+            "chunks": 1,
+            "size": 143195,
+            "lines": 3636,
+            "words": 14681
+        }
+    ],
+    "skipped_files": [
+        {
+            "path": ".env.example",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": ".gitignore",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\demo.mp4",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x80 in position 35: invalid start byte"
+        },
+        {
+            "path": "LICENSE",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "pytest.ini",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\requirements.txt",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+        },
+        {
+            "path": ".pytest_cache\\.gitignore",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": ".pytest_cache\\CACHEDIR.TAG",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": ".pytest_cache\\v\\cache\\lastfailed",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": ".pytest_cache\\v\\cache\\nodeids",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": ".vscode\\settings.json",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\admin.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "counter\\apps.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\models.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\tests.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\urls.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\views.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "counter\\__init__.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\migrations\\0001_initial.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\migrations\\0002_analysisrecord_bullets_and_more.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "counter\\migrations\\__init__.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\analysis.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\exporters.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\quality_insights.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\seed_origins.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\summarizer.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\text_extractors.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "counter\\services\\word_data.json",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\services\\word_selectors.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "counter\\services\\__init__.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\alerts.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\animation_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\background_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\border_radius_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\color_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\components.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\darkmode_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\flexbox_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\grid.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\responsive_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\shadow_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\spacing_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\spinner.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\style.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\text_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\themes.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\static\\counter\\css\\width_utilities.css",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\counter\\static\\counter\\img\\python_developer.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "counter\\templates\\counter\\analysis_detail.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\counter\\base.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\counter\\counter.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\counter\\history.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\export\\pdf_template.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\registration\\login.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "counter\\templates\\registration\\register.html",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\analysis_history.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\chart.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\indepth_UI.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\login_view.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\map.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\map_of_words_history.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\pdf_report.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\user_UI.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\user_UI2.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\view_delete_buttons.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\screenshots\\word_document.png",
+            "reason": "Error processing file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\tests\\test_analysis.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\tests\\test_extractors.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\tests\\test_vault.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\tests\\test_views.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "wordcounterapp\\asgi.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\wordcounterapp\\settings.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "C:\\Users\\Admin\\Desktop\\code\\django_word_counter\\wordcounterapp\\urls.py",
+            "reason": "Error processing file: 'list' object has no attribute 'split'"
+        },
+        {
+            "path": "wordcounterapp\\wsgi.py",
+            "reason": "Unchanged file (hash match)"
+        },
+        {
+            "path": "wordcounterapp\\__init__.py",
+            "reason": "Unchanged file (hash match)"
+        }
+    ],
+    "summary": {
+        "total_files_processed": 4,
+        "total_words": 21343
+    }
+}
