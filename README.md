@@ -131,4 +131,4 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 
 ---
 
-**Built By Roy Peters** [Click here for contact info 😁](https://www.linkedin.com/in/roy-p-74980b382/)
+**Built By Roy Peters** 😁 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/roy-p-74980b382/)
