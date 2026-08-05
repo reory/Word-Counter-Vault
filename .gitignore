@@ -2,12 +2,15 @@
 venv/
 ENV/
 env/
+*.vscode/
 
 # Database
 *.sqlite3
 
 # Python cache
 __pycache__/
+.ruff_cache/
+*.pytest_cache/
 *.py[cod]
 
 # Static files (if you use collectstatic)

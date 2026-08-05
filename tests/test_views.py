@@ -1,7 +1,9 @@
 import pytest
-from django.urls import reverse
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 from counter.models import AnalysisRecord
+
 
 @pytest.mark.django_db
 def test_counter_view_requires_login(client):
@@ -19,7 +21,7 @@ def test_counter_view_requires_login(client):
 def test_user_cannot_delete_others_history(client):
 
     # Create two users
-    user_a = User.objects.create_user(username='attacker', password='password123')
+    User.objects.create_user(username='attacker', password='password123')
     user_b = User.objects.create_user(username='victim', password='password123')
 
     # Create a record that belongs to user b
@@ -35,7 +37,7 @@ def test_user_cannot_delete_others_history(client):
 
     # Try to delete user B's record
     url = reverse('counter:delete_analysis', kwargs={'pk': record.pk})
-    response = client.post(url)
+    client.post(url)
 
     # Assertion - It should either redirect without deletion or return a 
     # 404/Permission denied error.

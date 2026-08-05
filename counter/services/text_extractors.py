@@ -1,5 +1,6 @@
-from PyPDF2 import PdfReader
 from docx import Document
+from PyPDF2 import PdfReader
+
 
 def extract_text_from_txt(file) -> str:
     """Read a txt.file and return its extracted text."""

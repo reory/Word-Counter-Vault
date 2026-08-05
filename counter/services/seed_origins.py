@@ -1,9 +1,10 @@
 # This is to set up the DuckDB databse.
 # idempotency (the ability to run a script multiple times without breaking things)
-import duckdb
-import os
 import json
+import os
+
 import django
+import duckdb
 from django.conf import settings
 
 # This tells the script which settings file to use.

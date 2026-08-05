@@ -1,7 +1,9 @@
 # The '..' means move up one directory level to find the models file
-from ..models import AnalysisRecord
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+
+from ..models import AnalysisRecord
+
 
 def get_user_history(user, search_query=""):
     """Fetches and filters the user's analysis history."""
