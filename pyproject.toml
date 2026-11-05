@@ -1,0 +1,24 @@
+[project]
+name = "django-word-counter"
+version = "0.1.0"
+description = "An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.2.19",
+    "duckdb>=1.5.6",
+    "matplotlib>=3.10.9",
+    "pypdf>=6.21.4",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.2.4",
+    "weasyprint>=70.0",
+]
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.168.5",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+    "pytest-django>=4.14.0",
+    "pytest-mock>=3.17.0",
+]

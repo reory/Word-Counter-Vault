@@ -28,3 +28,4 @@ video/
 __pycache__/
 db.sqlite3
 word_vault_analytics.duckdb
+*.txt

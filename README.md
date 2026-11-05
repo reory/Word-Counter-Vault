@@ -2,34 +2,58 @@
 
 <p align="center">
 
-  <!-- Core Tech -->
+  <img src="https://img.shields.io/github/last-commit/reory/Word-Counter-Vault?style=for-the-badge" />
+  <img src="https://img.shields.io/github/repo-size/reory/Word-Counter-Vault?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
+
+---
+
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" />
   <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/Folium-77B829?style=for-the-badge&logo=leaflet&logoColor=white" />
   <img src="https://img.shields.io/badge/DuckDB-FFF000?style=for-the-badge&logo=duckdb&logoColor=000000" />
 
-  <!-- Repo Info -->
-  <img src="https://img.shields.io/github/last-commit/reory/Word-Counter-Vault?style=for-the-badge" />
-  <img src="https://img.shields.io/github/repo-size/reory/Word-Counter-Vault?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
-
 </p>
 
 An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
 
+---
+
+## 📑 Table of Contents
+
+- [Project Walkthrough](#-project-walkthrough)
+- [Screenshots](#-screenshots)
+- [Project Architecture](#-project-architecture)
+- [File Structure](#-file-structure)
+- [Tech Stack](#-tech-stack)
+- [Installation & Local Usage](#️-installation--local-usage)
+- [Quality Assurance & Testing](#-quality-assurance--testing)
+- [Acknowledgments](#-acknowledgments)
+- [Roadmap Features](#️-roadmap-features)
+
+---
+
 ## 🎥 Project Walkthrough
+
+<details>
+  <summary>Click here</summary>
+
 [![Watch the Demo on LinkedIn](https://img.shields.io/badge/LinkedIn-Video_Walkthrough-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/posts/roy-p-74980b382_python-django-datascience-ugcPost-7431321183679045632-peek?utm_source=share&utm_medium=member_desktop&rcm=ACoAAF5yzmkBKYhDCqFaGGMG8mt7ntE88OY67k8)
 
 > **Note:** Click the badge above to view the full feature walkthrough and linguistic analysis demo on LinkedIn.
 
+</details>
+
 ---
 
 ## 📸 Screenshots
+
 See the full gallery here:
+
 <details>
- <summary><b>Click to expand screenshots</b></summary>
- <br>
+  <summary><b>Click to expand screenshots</b></summary>
+  <br>
 
  ![Main Dashboard](screenshots/user_UI.png)
  ![Main Dashboard](screenshots/user_UI2.png)
@@ -39,35 +63,101 @@ See the full gallery here:
  ![PDF Report](screenshots/pdf_report.png)
  ![Word Document](screenshots/word_document.png)
  ![Chart View](screenshots/chart.png)
- ![Indepth UI](screenshots/indepth_UI.png)
+ ![In-Depth UI](screenshots/indepth_UI.png)
  ![Main Dashboard](screenshots/analysis_history.png)
  ![View Delete Buttons](screenshots/view_delete_buttons.png)
+
 </details>
 
 ---
 
-## 🛠️ Project Architecture
-This project is divided into two main components to balance real-time user interaction with deep-dive analytical processing:
+## 📁 Project Architecture
 
----
-
-### 1. Interactive Analysis Dashboard (`views.py` & `templates/`)
-The **"Frontend"** logic of the project. It provides a real-time interface for users to explore their text data.
-* **Dynamic Geospatial Mapping:** Visualizes the "geographic DNA" of a text by pinpointing word origins across a global map using **Folium**.
-* **Instant Linguistic KPIs:** Calculates Lexical Diversity (TTR), Overused Words, and Passive Voice detection on the fly.
-* **User Vault:** A persistent history system allowing users to search, review, and manage their analysis records securely.
-
---- 
-
-### 2. Forensic Reporting & Data Engine (`services/` & `models.py`)
-The **"Analytical Backend."** This handles the heavy lifting of data management and document generation.
-* **Dual-State Storage:** Manages persistent user history in **SQLite** while offloading high-speed etymological lookups to a **DuckDB** OLAP engine.
-* **Global Etymology Pipeline:** A custom ingestion layer that maps over 500+ words to global coordinates (Latin, Germanic, Arabic, Sanskrit, and more).
-* **Automated Document Generation:** Compiles findings into professional PDF reports (via **WeasyPrint**) and Word documents (**python-docx**) for offline review.
+```plaintext
+Word-Counter-Vault/
+│
+├── manage.py                    # Django entry point
+├── pyproject.toml               # Project dependencies and configuration
+├── pytest.ini                   # Pytest configuration
+├── .env.example                 # Example environment variables
+├── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+│
+├── wordcounterapp/              # Django project configuration
+│   ├── __init__.py
+│   ├── settings.py              # Global settings
+│   ├── urls.py                  # Root URL routing
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── counter/                     # Main application
+│   │
+│   ├── models.py                # Database models
+│   ├── views.py                 # Request handlers
+│   ├── urls.py                  # App URL routes
+│   ├── admin.py
+│   ├── apps.py
+│   └── tests.py
+│
+│   ├── migrations/              # Django database migrations
+│   │   ├── 0001_initial.py
+│   │   └── 0002_analysisrecord_bullets_and_more.py
+│   │
+│   ├── services/                # Business logic layer
+│   │   ├── analysis.py
+│   │   ├── exporters.py
+│   │   ├── quality_insights.py
+│   │   ├── summarizer.py
+│   │   ├── text_extractors.py
+│   │   ├── word_selectors.py
+│   │   ├── seed_origins.py
+│   │   └── word_data.json
+│   │
+│   ├── templates/               # HTML templates
+│   │   │
+│   │   ├── counter/
+│   │   │   ├── base.html
+│   │   │   ├── counter.html
+│   │   │   ├── history.html
+│   │   │   └── analysis_detail.html
+│   │   │
+│   │   ├── registration/
+│   │   │   ├── login.html
+│   │   │   └── register.html
+│   │   │
+│   │   └── export/
+│   │       └── pdf_template.html
+│   │
+│   └── static/
+│       └── counter/
+│           ├── css/             # Dashboard styling
+│           └── img/             # UI assets
+│
+├── tests/                       # Pytest test suite
+│   ├── test_analysis.py
+│   ├── test_extractors.py
+│   ├── test_vault.py
+│   └── test_views.py
+│
+├── screenshots/                 # README screenshots
+│   ├── user_UI.png
+│   ├── user_UI2.png
+│   ├── chart.png
+│   ├── map.png
+│   ├── pdf_report.png
+│   └── ...
+│
+└── analysis/                    # Generated analysis artifacts
+    ├── metadata.json
+    ├── hashes.json
+    └── remaining/
+```
 
 ---
 
 ## 📁 File Structure
+
 * `word_counter/settings.py`: Core configuration for the Django environment.
 * `counter/views.py`: Logic for text processing, regex normalization, and dashboard rendering.
 * `counter/services/seed_origins.py`: Data pipeline script for ingesting the global word library.
@@ -77,6 +167,7 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 ---
 
 ## 🧰 Tech Stack
+
 * **Python 3.10** (Development Environment)
 * **Django 5.2:** For the web framework and user authentication.
 * **DuckDB:** For high-performance, local analytical etymology queries.
@@ -88,46 +179,54 @@ The **"Analytical Backend."** This handles the heavy lifting of data management 
 ---
 
 ## ⚙️ Installation & Local Usage
+
 To run this project locally:
+
 1. **Clone the repo:** `git clone https://github.com/reory/Word-Counter-Vault.git`
-2. **Install dependencies:** `pip install -r requirements.txt`
+2. **Install dependencies:** `uv sync`
 3. **Seed the Global Vault:** `python -m counter.services.seed_origins`
 4. **Launch the app:** `python manage.py runserver`
 
 ---
 
 ## 🧪 Quality Assurance & Testing
+
 This project implements a comprehensive automated testing suite using **Pytest** to ensure data integrity and security across the analytical pipeline.
 
 ### Test Coverage:
+
 * **Linguistic Logic:** Validates regex normalization, word frequency calculations, and lexical diversity metrics.
 * **Security & Permissions:** Ensures strict object-level access control (e.g., users cannot view or delete others' analysis history).
 * **Service Layer & Mocking:** Utilizes `pytest-mock` to simulate **DuckDB** OLAP connections, allowing for high-speed testing without disk I/O dependency.
 * **File Extraction:** Verifies robust handling of `.txt`, `.pdf`, and `.docx` uploads using Django's `SimpleUploadedFile`.
 
-### Running Tests locally:
+### Running Tests Locally:
+
 ```bash
 pytest
 ```
 
+---
+
 ## 🙏 Acknowledgments
+
 * **Etymology Sources:** Online Etymology Dictionary for root-word tracking.
 * **Community:** Thanks to the Django and DuckDB communities for the robust library support.
 
 ---
 
-## 🛣️ Roadmap
+## 🛣️ Roadmap Features
 
 - [x] **Core Architecture:** Dual-Engine (Django + DuckDB) setup.
-- [ ] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
-- [ ] **Geospatial Mapping:** Interactive etymology origins via Plotly/Mapbox.
-- [x] **Forensic Reporting:** PDF/CSV export functionality for text analysis.
+- [x] **Forensic Reporting:** PDF/WORD export functionality for text analysis.
 - [x] **User Accounts:** Private storage for linguistic history.
-
----
-
-## ⚖️ License
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+- [ ] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
+- [ ] **Readability Metrics:** Add Flesch Reading Ease, Flesch-Kincaid Grade Level, and Gunning Fog Index calculations for deeper writing quality assessment.
+- [ ] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
+- [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
+- [ ] **Analysis Tags & Collections:** Enable users to organize saved analyses into categories, folders, or tagged collections for improved vault management.
+- [ ] **Interactive Word Trends:** Track frequently used words across a user's analysis history to visualize vocabulary evolution over time.
+- [ ] **Enhanced Geospatial Mapping:** Interactive etymology origins via `Plotly/Mapbox`.
 
 ---
 

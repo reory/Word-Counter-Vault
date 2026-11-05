@@ -19,6 +19,7 @@ def test_counter_view_requires_login(client):
 
 @pytest.mark.django_db
 def test_user_cannot_delete_others_history(client):
+    """Verify users cannot delete analysis records owned by others."""
 
     # Create two users
     User.objects.create_user(username='attacker', password='password123')

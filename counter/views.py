@@ -228,7 +228,7 @@ def history_detail(request, pk):
 
 @login_required
 def delete_analysis(request, pk):
-    # Fetch the record or 404 if it doesn't exist/or belong to the user.
+    """Delete a user's analysis record and redirect to history."""
 
     # Fetch the specific record,
     # ensuring it actually belongs to the current user
