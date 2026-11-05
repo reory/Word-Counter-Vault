@@ -23,9 +23,14 @@ media/
 *.mov
 video/
 
+# Coverage reports
+.coverage
+htmlcov/
+
 .env
 *.log
 __pycache__/
 db.sqlite3
 word_vault_analytics.duckdb
 *.txt
+*.xml

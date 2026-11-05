@@ -80,6 +80,8 @@ class Command(BaseCommand):
                     ttr=quality_data["ttr"],
                     overused=quality_data["overused"],
                     passive_count=quality_data["passive_count"],
+                    flesch_score=quality_data["flesch_score"],
+                    gunning_fog=quality_data["gunning_fog"],
                 )
             )
 

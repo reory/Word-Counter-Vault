@@ -38,6 +38,8 @@ def get_export_data(user, pk=None, session=None):
             "ttr": record.ttr,
             "overused": record.overused,
             "passive_count": record.passive_count,
+            "flesch_score": record.flesch_score,
+            "gunning_fog": record.gunning_fog,
         }
 
     # Fallback to session data
@@ -51,6 +53,8 @@ def get_export_data(user, pk=None, session=None):
         "ttr": session.get("ttr"),
         "overused": session.get("overused"),
         "passive_count": session.get("passive_count"),
+        "flesch_score": session.get("flesch_score"),
+        "gunning_fog": session.get("gunning_fog"),
     }
 
 

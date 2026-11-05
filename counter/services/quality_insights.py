@@ -4,6 +4,24 @@ from collections import Counter
 from .analysis import STOP_WORDS
 
 
+def count_syllables(word: str) -> int:
+    """"Estimate syllable count for a given word using vowel-group heuristics."""
+
+    word = word.lower()
+    if len(word) <= 3:
+        return 1
+
+    # Remove trailing silent 'e', 'ed', 'es'
+    word = re.sub(r'(?:[^aeiouy]|e|ed|es)$', '', word)
+
+    # Remove leading 'y'
+    word = re.sub(r'^y', '', word)
+
+    syllables = len(re.findall(r'[aeiouy]{1,2}', word))
+    return max(1, syllables)
+
+
+
 def get_basic_metrics(text: str) -> dict:
     """Calculates core counters and reading time."""
 
@@ -36,11 +54,12 @@ def get_basic_metrics(text: str) -> dict:
 
 
 def analyze_quality(text: str) -> dict:
-    """Evaluate the input text and return metrics as a dictionary."""
+    """Evaluate the input text and return metrics including readability scores."""
 
     # Split into sequences.
     sentences = re.split(r"(?<=[.!?])\s+", text)
     sentences = [s.strip() for s in sentences if s.strip()]
+    total_sentences = len(sentences)
 
     # Longest sentence
     longest_sentence = max(sentences, key=len) if sentences else ""
@@ -50,6 +69,22 @@ def analyze_quality(text: str) -> dict:
     total_words = len(words)
     unique_words = len(set(words))
     ttr = round(unique_words / total_words, 3) if total_words else 0
+
+    # Syllable and complex word calculations for readability
+    total_syllables = sum(count_syllables(w) for w in words)
+    complex_words_count = sum(1 for w in words if count_syllables(w) >= 3)
+
+    words_per_sentence = (total_words / total_sentences) if total_sentences else 0
+    syllables_per_word = (total_syllables / total_words) if total_words else 0
+
+    # Flesch Reading Ease Formula
+    flesch_score = 206.835 - (1.015 * words_per_sentence) - (84.6 * syllables_per_word)
+    flesch_score = round(max(0.0, min(100.0, flesch_score)), 2) if total_words and total_sentences else 0.0
+
+    # Gunning Fog Index Formula
+    percentage_complex = (complex_words_count / total_words) * 100 if total_words else 0
+    gunning_fog = 0.4 * (words_per_sentence + percentage_complex)
+    gunning_fog = round(gunning_fog, 2) if total_words and total_sentences else 0.0
 
     # Overused words (Using the import STOP_WORDS)
     filtered = [w for w in words if w not in STOP_WORDS]
@@ -70,4 +105,6 @@ def analyze_quality(text: str) -> dict:
         "ttr": ttr,
         "overused": overused,
         "passive_count": passive_count,
+        "flesch_score": flesch_score,
+        "gunning_fog": gunning_fog,
     }

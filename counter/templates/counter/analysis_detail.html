@@ -64,6 +64,37 @@
                 </div>
             </div>
 
+            <!-- NEW: Readability & Quality Metrics Section -->
+            <div class="mb-4">
+                <h5 class="fw-bold"><i class="bi bi-speedometer2 text-primary"></i> Readability & Insights</h5>
+                <div class="row g-3 mt-1">
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 border rounded text-center bg-light metric-box">
+                            <span class="meta-label d-block mb-1">Flesch Ease</span>
+                            <span class="fs-5 fw-bold text-primary">{{ record.flesch_score|default:"0.0" }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 border rounded text-center bg-light metric-box">
+                            <span class="meta-label d-block mb-1">Gunning Fog</span>
+                            <span class="fs-5 fw-bold text-primary">{{ record.gunning_fog|default:"0.0" }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 border rounded text-center bg-light metric-box">
+                            <span class="meta-label d-block mb-1">TTR Diversity</span>
+                            <span class="fs-5 fw-bold text-primary">{{ record.ttr|default:"0.0" }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 border rounded text-center bg-light metric-box">
+                            <span class="meta-label d-block mb-1">Passive Voice</span>
+                            <span class="fs-5 fw-bold text-danger">{{ record.passive_count|default:"0" }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-4">
                 <button class="btn btn-sm btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseText">
                     View Original Text Snippet

@@ -58,6 +58,8 @@
                         <ul class="list-unstyled mb-3">
                             <li class="mb-2 small"><strong>Type-Token Ratio:</strong> <span class="text-primary">{{ ttr|floatformat:2 }}</span></li>
                             <li class="mb-2 small"><strong>Passive Voice:</strong> <span class="text-danger">{{ passive_count }}</span></li>
+                            <li class="mb-2 small"><strong>Flesch Reading Ease:</strong> <span class="text-primary">{{ flesch_score }}</span></li>
+                            <li class="mb-2 small"><strong>Gunning Fog Index:</strong> <span class="text-primary">{{ gunning_fog }}</span></li>
                             <li class="mb-0 small"><strong>Longest Sentence:</strong></li>
                             <li class="text-muted italic small">"{{ longest_sentence|truncatechars:80 }}"</li>
                         </ul>

@@ -65,8 +65,18 @@ See the full gallery here:
  ![Word Document](screenshots/word_document.png)
  ![Chart View](screenshots/chart.png)
  ![In-Depth UI](screenshots/indepth_UI.png)
+ - Text Analysis view
  ![Main Dashboard](screenshots/analysis_history.png)
+ - Delete Buttons
  ![View Delete Buttons](screenshots/view_delete_buttons.png)
+ - Readability Score Guide 
+ - Flesch Reading Ease (0–100 scale):
+ High score: Easy to read (plain English, blogs, general audiences).
+ Low score: Very difficult (dense academic or legal texts).
+- Gunning Fog Index (Years of education required):
+High score: Advanced professional/college level (requires 16+ years of education).
+Low score: Mass-market, accessible level (high school or below).
+ ![Flesch_score & Gunning_fog](screenshots/flesch_score_gunning_fog.png)
 
 </details>
 
@@ -234,7 +244,7 @@ pytest
 - [x] **Forensic Reporting:** PDF/WORD export functionality for text analysis.
 - [x] **User Accounts:** Private storage for linguistic history.
 - [x] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
-- [ ] **Readability Metrics:** Add Flesch Reading Ease, Flesch-Kincaid Grade Level, and Gunning Fog Index calculations for deeper writing quality assessment.
+- [x] **Readability Metrics:** Add Flesch Reading Ease, and Gunning Fog Index calculations for deeper writing quality assessment.
 - [ ] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
 - [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
 - [ ] **Analysis Tags & Collections:** Enable users to organize saved analyses into categories, folders, or tagged collections for improved vault management.

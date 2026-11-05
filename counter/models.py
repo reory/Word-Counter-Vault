@@ -33,6 +33,10 @@ class AnalysisRecord(models.Model):
     overused = models.JSONField(default=list, blank=True)
     # How many passive sentences?
     passive_count = models.IntegerField(default=0)
+    # Flesch Reading Ease score
+    flesch_score = models.FloatField(default=0.0)
+    # Gunning Fog index for readability
+    gunning_fog = models.FloatField(default=0.0)
 
     def __str__(self):
         """Defines how a object appears as a string."""
