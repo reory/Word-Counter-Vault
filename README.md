@@ -28,6 +28,7 @@ An interactive intelligence dashboard and automated reporting tool built to anal
 - [File Structure](#-file-structure)
 - [Tech Stack](#-tech-stack)
 - [Installation & Local Usage](#️-installation--local-usage)
+- [Stress Testing & Database Seeding](#-stress-testing--database-seeding)
 - [Quality Assurance & Testing](#-quality-assurance--testing)
 - [Acknowledgments](#-acknowledgments)
 - [Roadmap Features](#️-roadmap-features)
@@ -189,6 +190,18 @@ To run this project locally:
 
 ---
 
+## 🧪 Stress Testing & Database Seeding
+
+This project includes a custom Django management command powered by **Faker** to generate synthetic `AnalysisRecord` entries for performance and load testing.
+
+### Running the Seeder
+
+To populate your local vault with synthetic records, run:
+
+```bash
+python manage.py seed_stress_data --count 500
+```
+
 ## 🧪 Quality Assurance & Testing
 
 This project implements a comprehensive automated testing suite using **Pytest** to ensure data integrity and security across the analytical pipeline.
@@ -220,7 +233,7 @@ pytest
 - [x] **Core Architecture:** Dual-Engine (Django + DuckDB) setup.
 - [x] **Forensic Reporting:** PDF/WORD export functionality for text analysis.
 - [x] **User Accounts:** Private storage for linguistic history.
-- [ ] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
+- [x] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
 - [ ] **Readability Metrics:** Add Flesch Reading Ease, Flesch-Kincaid Grade Level, and Gunning Fog Index calculations for deeper writing quality assessment.
 - [ ] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
 - [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.

@@ -142,7 +142,10 @@ def register(request):
             form.save()
             # Get the username to personalize the success message.
             username = form.cleaned_data.get("username")
-            messages.success(request, f"Account created for {username}! Please log in.")
+            messages.success(
+                request, 
+                f"Account created for {username}! Please log in."
+            )
             return redirect("login")
 
     else:
@@ -239,6 +242,20 @@ def delete_analysis(request, pk):
         messages.success(request, "Record deleted successfully!")
     # Send the user back to the history list regardless of the outcome
     return redirect("counter:history")
+
+
+@login_required
+def clear_history(request):
+    """Delete all analysis records belonging to the current user."""
+
+    if request.method == "POST":
+        deleted_count, _ = AnalysisRecord.objects.filter(user=request.user).delete()
+        messages.success(
+            request, 
+            f"Successfully deleted {deleted_count} records from your vault."
+        )
+    return redirect("counter:history")
+
 
 
 def get_value_matches(word_list):
