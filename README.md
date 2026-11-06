@@ -279,7 +279,7 @@ pytest
 - [x] **User Accounts:** Private storage for linguistic history.
 - [x] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
 - [x] **Readability Metrics:** Add Flesch Reading Ease, and Gunning Fog Index calculations for deeper writing quality assessment.
-- [ ] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
+- [x] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
 - [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
 - [ ] **Analysis Tags & Collections:** Enable users to organiae saved analyses into categories, folders, or tagged collections for improved vault management.
 - [ ] **Interactive Word Trends:** Track frequently used words across a user's analysis history to visualise vocabulary evolution over time.
