@@ -35,3 +35,4 @@ db.sqlite3
 word_vault_analytics.duckdb
 *.txt
 *.xml
+config.yaml
