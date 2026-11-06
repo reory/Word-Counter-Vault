@@ -201,7 +201,7 @@ Word-Counter-Vault/
 
 ## 🧰 Tech Stack
 
-* **Python 3.10** (Development Environment)
+* **Python 3.12** (Development Environment)
 * **Django 5.2:** For the web framework and user authentication.
 * **DuckDB:** For high-performance, local analytical etymology queries.
 * **SQLite:** For persistent user history and session management.
