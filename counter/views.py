@@ -13,6 +13,7 @@ from django.templatetags.static import static
 
 from .models import AnalysisRecord
 from .services import exporters, word_selectors
+from .services.comparisons import compare_texts
 from .services.quality_insights import analyse_quality, get_basic_metrics
 from .services.summariser import generate_summary
 from .services.text_extractors import get_text_from_uploaded_file
@@ -135,6 +136,36 @@ def counter(request):
         ]:
             request.session[key] = context.get(key)
     return render(request, "counter/counter.html", context)
+
+
+@login_required
+def compare(request):
+    """Compare two text submissions side by side."""
+
+    # Context passed to the template
+    context = {}
+
+    if request.method == "POST":
+
+        # Retrieve both text submissions from the form.
+        text_a = request.POST.get("text_a", "")
+        text_b = request.POST.get("text_b", "")
+
+        # Only run the comparison when both fields contain text
+        if text_a.strip() and text_b.strip():
+
+            # Delegate comparison logic to the service layer.
+            context["results"] = compare_texts(
+                text_a,
+                text_b,
+            )
+
+            # Preserve submitted text after page refresh/render.
+            context["text_a"] = text_a
+            context["text_b"] = text_b
+
+    # Render the comparison page.
+    return render(request,"counter/compare.html", context)
 
 
 def register(request):

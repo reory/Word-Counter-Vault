@@ -29,5 +29,8 @@ urlpatterns = [
     path("history/clear/", views.clear_history, name="clear_history"),
     
     # This path is for the registration page when a user want to sign up.
-    path('register/', views.register, name='register')
+    path('register/', views.register, name='register'),
+    
+    # This path is for comparing two text submissions side-by-side.
+    path('compare/', views.compare, name='compare'),
 ]

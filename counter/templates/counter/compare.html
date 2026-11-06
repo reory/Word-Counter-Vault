@@ -1,0 +1,71 @@
+{% extends 'counter/base.html' %}
+
+{% block content %}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+
+        <h2 class="text-primary mb-4">
+            <i class="bi bi-columns-gap"></i>
+            Compare Texts
+        </h2>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Text A
+                </label>
+
+                <textarea
+                    name="text_a"
+                    rows="8"
+                    class="form-control"
+                >{{ text_a }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">
+                    Text B
+                </label>
+
+                <textarea
+                    name="text_b"
+                    rows="8"
+                    class="form-control"
+                >{{ text_b }}</textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Compare
+            </button>
+
+        </form>
+
+        {% if results %}
+            <hr>
+
+            <h4>Comparison Complete</h4>
+
+            <p>
+                Text A Word Count:
+                {{ results.text_a.metrics.word_count }}
+
+            </p>
+
+            <p>
+                Text B Word Count:
+                {{ results.text_b.metrics.word_count }}
+
+            </p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

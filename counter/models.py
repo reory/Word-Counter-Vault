@@ -17,24 +17,34 @@ class AnalysisRecord(models.Model):
 
     # Counts the number of words.
     word_count = models.IntegerField()
+
     # Produces a summary of the text.
     summary = models.TextField()
+
     # Stores the list of topics.
     topics = models.JSONField(default=list)
+
     # A database column for decimal numbers; 'null=True' allows it to be empty
     quality_score = models.FloatField(null=True)
+
     # Stores the bullet points
     bullets = models.JSONField(default=list, blank=True)
+
     # Stores the text of the longest sentence
     longest_sentence = models.TextField(blank=True, null=True)
+
     # Type-Token Ratio (0.0 to 1.0)
     ttr = models.FloatField(default=0.0)
+
     # Stores [('word', 10), ('word2', 5)]
     overused = models.JSONField(default=list, blank=True)
+
     # How many passive sentences?
     passive_count = models.IntegerField(default=0)
+
     # Flesch Reading Ease score
     flesch_score = models.FloatField(default=0.0)
+    
     # Gunning Fog index for readability
     gunning_fog = models.FloatField(default=0.0)
 

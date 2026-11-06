@@ -132,7 +132,12 @@ Word-Counter-Vault/
 │   ├── admin.py
 │   ├── apps.py
 │   └── tests.py
-│
+|   |
+│   ├── management/
+|   |    ├── commands/
+│   |        └── seed_stress_data.py
+|   |
+|   |
 │   ├── migrations/              # Django database migrations
 │   │   ├── 0001_initial.py
 │   │   └── 0002_analysisrecord_bullets_and_more.py
@@ -168,10 +173,17 @@ Word-Counter-Vault/
 │           └── img/             # UI assets
 │
 ├── tests/                       # Pytest test suite
+│   ├── conftest.py
 │   ├── test_analysis.py
-│   ├── test_extractors.py
-│   ├── test_vault.py
-│   └── test_views.py
+│   ├── test_exporters.py
+|   ├── test_extractors.py
+|   ├── test_quality_insights.py
+|   ├── test_seed_origins.py
+|   ├── test_summariser.py
+|   ├── test_text_extractors.py
+|   ├── test_vault.py
+|   ├── test_views.py
+│   └── test_word_selectors.py
 │
 ├── screenshots/                 # README screenshots
 │   ├── user_UI.png
