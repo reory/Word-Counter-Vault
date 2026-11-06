@@ -5,10 +5,19 @@
 <div class="card shadow-sm border-0">
     <div class="card-body">
 
-        <h2 class="text-primary mb-4">
-            <i class="bi bi-columns-gap"></i>
-            Compare Texts
-        </h2>
+        <div class="d-flex align-items-center gap-3 mb-4">
+
+            <a href="{% url 'counter:home' %}"
+               class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+
+            <h2 class="text-primary m-0">
+                <i class="bi bi-columns-gap"></i>
+                Compare Texts
+            </h2>
+
+        </div>
 
         <form method="post">
 
@@ -21,7 +30,7 @@
 
                 <textarea
                     name="text_a"
-                    rows="8"
+                    rows="3"
                     class="form-control"
                 >{{ text_a }}</textarea>
             </div>
@@ -33,7 +42,7 @@
 
                 <textarea
                     name="text_b"
-                    rows="8"
+                    rows="3"
                     class="form-control"
                 >{{ text_b }}</textarea>
             </div>
@@ -48,21 +57,243 @@
         </form>
 
         {% if results %}
+
             <hr>
 
-            <h4>Comparison Complete</h4>
+            <h4 class="mb-3">
+                Comparison Results
+            </h4>
 
-            <p>
-                Text A Word Count:
-                {{ results.text_a.metrics.word_count }}
+            <div class="table-responsive">
 
-            </p>
+                <table class="table table-bordered">
 
-            <p>
-                Text B Word Count:
-                {{ results.text_b.metrics.word_count }}
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Metric</th>
+                            <th>Text A</th>
+                            <th>Text B</th>
+                        </tr>
+                    </thead>
 
-            </p>
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                Word Count
+                                <span
+                                    data-bs-toggle="tooltip"
+                                    title="Total number of words detected in the text."
+                                    style="cursor: help;"
+                                >
+                                    ⓘ
+                                </span>
+                            </td>
+
+                            <td>{{ results.text_a.metrics.word_count }}</td>
+                            <td>{{ results.text_b.metrics.word_count }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Lexical Diversity (TTR)
+                                <span
+                                    data-bs-toggle="tooltip"
+                                    title="Type-Token Ratio. Measures vocabulary diversity. Higher values indicate a wider range of unique words."
+                                    style="cursor: help;"
+                                >   
+                                    ⓘ
+                                </span>
+                            </td>
+
+                            <td>{{ results.text_a.quality.ttr }}</td>
+                            <td>{{ results.text_b.quality.ttr }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Passive Voice Count
+                                <span
+                                    data-bs-toggle="tooltip"
+                                    title="Number of passive voice constructions identified. Lower values generally improve clarity."
+                                    style="cursor: help;"
+                                >
+                                    ⓘ
+                                </span> 
+                            </td>
+
+                            <td>{{ results.text_a.quality.passive_count }}</td>
+                            <td>{{ results.text_b.quality.passive_count }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Flesch Reading Score
+                                <span
+                                    data-bs-toggle="tooltip"
+                                    title="Measures readability on a scale from 0 to 100. Higher scores are easier to read, while lower scores indicate more complex writing."
+                                    style="cursor: help;"
+                                >   
+                                    ⓘ 
+                                </span>
+                            </td>
+
+                            <td>{{ results.text_a.quality.flesch_score }}</td>
+                            <td>{{ results.text_b.quality.flesch_score }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Gunning Fog Index
+                                <span
+                                    data-bs-toggle="tooltip"
+                                    title="Estimates the reading difficulty of a text. A score of 8 is generally suitable for secondary school readers, while scores above 12 indicate more advanced or academic writing."
+                                    style="cursor: help;"
+                                >
+                                    ⓘ
+                                </span>
+                            </td>
+
+                            <td>{{ results.text_a.quality.gunning_fog }}</td>
+                            <td>{{ results.text_b.quality.gunning_fog }}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="card mt-4 border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        <i class="bi bi-lightbulb"></i>
+                        Comparison Summary
+                    </h5>
+
+                    <ul class="mb-0">
+
+                        {% for insight in results.comparison.insights %}
+                            <li>{{ insight }}</li>
+                        {% endfor %}
+
+                    </ul>
+
+                    <hr>
+
+                    <p class="mb-0">
+                        <strong>
+                            Vocabulary Overlap
+
+                            <span
+                                data-bs-toggle="tooltip"
+                                title="Shows how much vocabulary the two texts have in common. Higher percentages indicate greater similarity between the texts."
+                                style="cursor: help;"
+                            >
+                                ⓘ 
+                            </span>
+                            :
+                        </strong>
+
+                        <span class="badge bg-primary">
+                            {{ results.comparison.vocabulary_overlap }}%
+                        </span>
+                    </p>
+
+                    <hr>
+
+                    <h6 class="mb-2">
+                        <i class="bi bi-tags"></i>
+                            Shared Vocabulary
+
+                        <span
+                            data-bs-toggle="tooltip"
+                            title="Words that appear in both texts. Shared vocabulary can indicate common topics, themes, or writing styles."
+                            style="cursor: help;"
+                        >
+                            ⓘ
+                        </span>
+                    </h6>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        {% for word in results.comparison.shared_words|slice:":20" %}
+                            <span class="badge bg-secondary">
+                                {{ word }}
+                            </span>
+                        {% empty %}
+                            <span class="text-muted">
+                                No shared vocabulary found.
+                            </span>
+                        {% endfor %}
+
+                    </div>
+
+                        <hr>
+
+                        <h6 class="mb-2">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Unique To Text A
+
+                            <span
+                                data-bs-toggle="tooltip"
+                                title="Words found only in Text A and not in Text B."
+                                style="cursor: help;"
+                            >
+                                ⓘ
+                            </span>
+                        </h6>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            {% for word in results.comparison.unique_to_a|slice:":20" %}
+                                <span class="badge bg-primary">
+                                    {{ word }}
+                                </span>
+                            {% empty %}
+                                <span class="text-muted">
+                                    No unique vocabulary found.
+                                </span>
+                            {% endfor %}
+
+                        </div>
+
+                        <hr>
+
+                        <h6 class="mb-2">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Unique To Text B
+                            <span
+                                data-bs-toggle="tooltip"
+                                title="Words found only in Text B and not in Text A."
+                                style="cursor: help;"
+                            >
+                                ⓘ
+                            </span>
+                        </h6>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            {% for word in results.comparison.unique_to_b|slice:":20" %}
+                                <span class="badge bg-secondary">
+                                    {{ word }}
+                                </span>
+                            {% empty %}
+                                <span class="text-muted">
+                                    No unique vocabulary found.
+                                </span>
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         {% endif %}
 
     </div>

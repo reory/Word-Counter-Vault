@@ -99,7 +99,12 @@ See the full gallery here:
 High score: Advanced professional/college level (requires 16+ years of education).
 Low score: Mass-market, accessible level (high school or below).
  ![Flesch_score & Gunning_fog](screenshots/flesch_score_gunning_fog.png)
-
+---
+- Comparative Analysis with hover tooltips displaying information.
+![Comparison screenshot](screenshots/compare1.png)
+![Comparative Analysis](screenshots/compare2.png)
+![Comparative Analysis](screenshots/compare3.png)
+---
 </details>
 
 ---

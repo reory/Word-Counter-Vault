@@ -1,3 +1,9 @@
+"""
+Comparative Analysis 
+Compare two text submissions side-by-side to identify differences in vocabulary, 
+lexical diversity, readability, and writing style.
+"""
+
 from .analysis import get_word_frequencies
 from .quality_insights import analyse_quality, get_basic_metrics
 from .summariser import generate_summary
