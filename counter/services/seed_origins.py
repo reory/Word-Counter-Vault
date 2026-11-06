@@ -1,5 +1,8 @@
-# This is to set up the DuckDB databse.
-# idempotency (the ability to run a script multiple times without breaking things)
+"""
+This is to set up the DuckDB databse.
+idempotency (the ability to run a script multiple times without breaking things)
+"""
+
 import json
 import os
 

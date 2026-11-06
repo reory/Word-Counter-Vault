@@ -35,7 +35,7 @@ def extract_text_from_docx(file) -> str:
     return "\n".join(paragraphs)
 
 def get_text_from_uploaded_file(uploaded_file):
-    """Acts as a central gateway to extract text regardless of file type"""
+    """Dispatch text extraction based on the uploaded file type."""
 
     filename = uploaded_file.name.lower()
 

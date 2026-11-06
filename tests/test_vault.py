@@ -1,5 +1,8 @@
-# Mock is used as the test runs fast with the mocker.
-# Better to do this than test the DB, testing the connection to the SQL.
+"""
+Mock is used as the test runs fast with the mocker.
+Better to do this than test the DB, testing the connection to the SQL
+"""
+
 import pytest #noqa
 from unittest.mock import MagicMock
 from counter.views import get_value_matches
