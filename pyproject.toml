@@ -1,7 +1,7 @@
 [project]
 name = "django-word-counter"
 version = "0.1.0"
-description = "An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology."
+description = "An interactive intelligence dashboard and automated reporting tool built to analyse linguistic patterns and global etymology."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

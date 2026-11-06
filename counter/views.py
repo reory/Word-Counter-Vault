@@ -13,8 +13,8 @@ from django.templatetags.static import static
 
 from .models import AnalysisRecord
 from .services import exporters, word_selectors
-from .services.quality_insights import analyze_quality, get_basic_metrics
-from .services.summarizer import generate_summary
+from .services.quality_insights import analyse_quality, get_basic_metrics
+from .services.summariser import generate_summary
 from .services.text_extractors import get_text_from_uploaded_file
 
 
@@ -41,7 +41,7 @@ def counter(request):
 
             if text:
                 messages.success(
-                    request, f"'{uploaded_file.name}' analyzed successfully!"
+                    request, f"'{uploaded_file.name}' analysed successfully!"
                 )
             else:
                 messages.error(request, f"Unsupported file type: {uploaded_file.name}")
@@ -59,7 +59,7 @@ def counter(request):
         # 2. DELEGATE LINGUISTIC MATH TO SERVICES
         metrics = get_basic_metrics(text)
         summary_data = generate_summary(text)
-        quality_data = analyze_quality(text)
+        quality_data = analyse_quality(text)
 
         # Hook up the DuckDB.
 
@@ -146,7 +146,7 @@ def register(request):
         if form.is_valid():
             # Save the new user to the database.
             form.save()
-            # Get the username to personalize the success message.
+            # Get the username to personalise the success message.
             username = form.cleaned_data.get("username")
             messages.success(
                 request, 

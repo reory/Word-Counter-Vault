@@ -22,7 +22,7 @@ def get_export_data(user, pk=None, session=None):
 
     # Prevents 'NoneType' errors if the function is called without a session
     if session is None:
-        # Initialize as empty dict so
+        # Initialise as empty dict so
         # .get() calls safely return None instead of crashing
         session = {}
 

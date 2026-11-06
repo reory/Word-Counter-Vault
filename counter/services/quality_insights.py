@@ -21,7 +21,6 @@ def count_syllables(word: str) -> int:
     return max(1, syllables)
 
 
-
 def get_basic_metrics(text: str) -> dict:
     """Calculates core counters and reading time."""
 
@@ -53,7 +52,7 @@ def get_basic_metrics(text: str) -> dict:
     }
 
 
-def analyze_quality(text: str) -> dict:
+def analyse_quality(text: str) -> dict:
     """Evaluate the input text and return metrics including readability scores."""
 
     # Split into sequences.

@@ -16,12 +16,13 @@
 
 </p>
 
-An interactive intelligence dashboard and automated reporting tool built to analyze linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
+An interactive intelligence dashboard and automated reporting tool built to analyse linguistic patterns and global etymology. This project transforms raw text input into actionable forensic insights using a modern Python stack.
 
 ---
 
 ## 📑 Table of Contents
 
+- [Why This Project Was Built](#-why-this-project-was-built)
 - [Project Walkthrough](#-project-walkthrough)
 - [Screenshots](#-screenshots)
 - [Project Architecture](#-project-architecture)
@@ -32,6 +33,12 @@ An interactive intelligence dashboard and automated reporting tool built to anal
 - [Quality Assurance & Testing](#-quality-assurance--testing)
 - [Acknowledgments](#-acknowledgments)
 - [Roadmap Features](#️-roadmap-features)
+
+---
+
+## 🧠 Why This Project Was Built
+
+This project was built to explore text analysis beyond simple word counts. It combines linguistic analysis, readability scoring, word origins, geospatial visualisation, and automated reporting into a single application, while serving as a practical showcase of modern Python and Django development.
 
 ---
 
@@ -56,19 +63,34 @@ See the full gallery here:
   <summary><b>Click to expand screenshots</b></summary>
   <br>
 
+- Analysis view after inputting text into the text box
  ![Main Dashboard](screenshots/user_UI.png)
  ![Main Dashboard](screenshots/user_UI2.png)
+---
+- Geographic map of where words originate from.
  ![Main Dashboard Map](screenshots/map_of_words_history.png)
  ![Main Dashboard Map](screenshots/map.png)
+---
+- login view screen
  ![Main Login](screenshots/login_view.png)
+---
+- PDF report
  ![PDF Report](screenshots/pdf_report.png)
+- Word document report
  ![Word Document](screenshots/word_document.png)
+---
+- Top ten most common words identified from the text input
  ![Chart View](screenshots/chart.png)
+---
+- In Depth view of entered text
  ![In-Depth UI](screenshots/indepth_UI.png)
- - Text Analysis view
+---
+ - Text Analysis history view
  ![Main Dashboard](screenshots/analysis_history.png)
+---
  - Delete Buttons
  ![View Delete Buttons](screenshots/view_delete_buttons.png)
+---
  - Readability Score Guide 
  - Flesch Reading Ease (0–100 scale):
  High score: Easy to read (plain English, blogs, general audiences).
@@ -119,7 +141,7 @@ Word-Counter-Vault/
 │   │   ├── analysis.py
 │   │   ├── exporters.py
 │   │   ├── quality_insights.py
-│   │   ├── summarizer.py
+│   │   ├── summariser.py
 │   │   ├── text_extractors.py
 │   │   ├── word_selectors.py
 │   │   ├── seed_origins.py
@@ -170,7 +192,7 @@ Word-Counter-Vault/
 ## 📁 File Structure
 
 * `word_counter/settings.py`: Core configuration for the Django environment.
-* `counter/views.py`: Logic for text processing, regex normalization, and dashboard rendering.
+* `counter/views.py`: Logic for text processing, regex normalisation, and dashboard rendering.
 * `counter/services/seed_origins.py`: Data pipeline script for ingesting the global word library.
 * `counter/services/word_data.json`: The "Source of Truth" containing 500+ global etymology records.
 * `word_vault_analytics.duckdb`: High-performance database for geospatial word lookups.
@@ -185,7 +207,7 @@ Word-Counter-Vault/
 * **SQLite:** For persistent user history and session management.
 * **Folium/Leaflet:** For interactive geospatial mapping.
 * **WeasyPrint / python-docx:** For automated forensic report creation.
-* **Regex:** For high-speed text normalization and cleaning.
+* **Regex:** For high-speed text normalisation and cleaning.
 
 ---
 
@@ -218,9 +240,9 @@ This project implements a comprehensive automated testing suite using **Pytest**
 
 ### Test Coverage:
 
-* **Linguistic Logic:** Validates regex normalization, word frequency calculations, and lexical diversity metrics.
+* **Linguistic Logic:** Validates regex normalisation, word frequency calculations, and lexical diversity metrics.
 * **Security & Permissions:** Ensures strict object-level access control (e.g., users cannot view or delete others' analysis history).
-* **Service Layer & Mocking:** Utilizes `pytest-mock` to simulate **DuckDB** OLAP connections, allowing for high-speed testing without disk I/O dependency.
+* **Service Layer & Mocking:** Utilises `pytest-mock` to simulate **DuckDB** OLAP connections, allowing for high-speed testing without disk I/O dependency.
 * **File Extraction:** Verifies robust handling of `.txt`, `.pdf`, and `.docx` uploads using Django's `SimpleUploadedFile`.
 
 ### Running Tests Locally:
@@ -247,8 +269,8 @@ pytest
 - [x] **Readability Metrics:** Add Flesch Reading Ease, and Gunning Fog Index calculations for deeper writing quality assessment.
 - [ ] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
 - [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
-- [ ] **Analysis Tags & Collections:** Enable users to organize saved analyses into categories, folders, or tagged collections for improved vault management.
-- [ ] **Interactive Word Trends:** Track frequently used words across a user's analysis history to visualize vocabulary evolution over time.
+- [ ] **Analysis Tags & Collections:** Enable users to organiae saved analyses into categories, folders, or tagged collections for improved vault management.
+- [ ] **Interactive Word Trends:** Track frequently used words across a user's analysis history to visualise vocabulary evolution over time.
 - [ ] **Enhanced Geospatial Mapping:** Interactive etymology origins via `Plotly/Mapbox`.
 
 ---

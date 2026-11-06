@@ -11,6 +11,7 @@ from django.conf import settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wordcounterapp.settings')
 django.setup()
 
+
 def seed_vault():
     """Populate the database with data and specific configurations."""
 

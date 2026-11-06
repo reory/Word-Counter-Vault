@@ -14,8 +14,8 @@ from dotenv import load_dotenv
 from faker import Faker
 
 from counter.models import AnalysisRecord
-from counter.services.quality_insights import analyze_quality, get_basic_metrics
-from counter.services.summarizer import generate_summary
+from counter.services.quality_insights import analyse_quality, get_basic_metrics
+from counter.services.summariser import generate_summary
 
 load_dotenv()
 
@@ -65,7 +65,7 @@ class Command(BaseCommand):
             text = " ".join(fake.paragraphs(nb=random.randint(3, 8)))
             metrics = get_basic_metrics(text)
             summary_data = generate_summary(text)
-            quality_data = analyze_quality(text)
+            quality_data = analyse_quality(text)
 
             records_to_create.append(
                 AnalysisRecord(
