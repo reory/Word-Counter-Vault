@@ -1,43 +1,152 @@
-# Contributing to Word Counter Vault
+# 🤝 Contributing to Word Counter Vault
 
-First off, thank you for considering contributing to the Word Counter Vault! It's people like you who make the open-source community such an amazing place to learn, inspire, and create.
+Thank you for your interest in contributing.
 
-## 📜 Code of Conduct
+Word Counter Vault is designed to be a practical text-analysis platform that combines linguistic intelligence, readability analysis, etymology research, geospatial visualisation, and automated reporting.
 
-By participating in this project, you agree to maintain a professional and respectful environment for everyone.
+Contributions that improve reliability, usability, performance, testing, documentation, and roadmap features are always welcome.
 
-## 🛠️ How Can I Contribute?
+---
 
-### Reporting Bugs
+## ⚒️ Getting Started
 
-* Check the **Issues** tab to see if the bug has already been reported.
-* If not, open a new issue. Clearly describe the problem, including steps to reproduce the bug and your operating system/browser details.
+### Clone the Repository
 
-### Suggesting Enhancements
+```bash
+git clone https://github.com/reory/Word-Counter-Vault.git
+cd Word-Counter-Vault
+```
 
-* Open an issue with the tag `enhancement`.
-* Explain the "Why" behind the feature and how it would benefit users.
+### Install Dependencies
 
-### Pull Requests (PRs)
+```bash
+uv sync
+```
 
-1. **Fork** the repository.
-2. **Create a branch** for your feature (`git checkout -b feature/AmazingFeature`).
-3. **Commit your changes** (`git commit -m 'Add some AmazingFeature'`).
-4. **Push to the branch** (`git push origin feature/AmazingFeature`).
-5. **Open a Pull Request**.
+### Seed the Global Vault
 
-## 🏗️ Development Guidelines
+```bash
+python -m counter.services.seed_origins
+```
 
-* **Database Seeding:** If you modify `word_data.json`, you must run the seeding script (`python -m counter.services.seed_origins`) to verify the DuckDB file updates correctly.
-* **Environment:** Ensure you are using a virtual environment and update `requirements.txt` if you add new dependencies.
-* **Style:** Follow PEP 8 guidelines for Python code.
+### Run the Application
+
+```bash
+python manage.py runserver
+```
+
+### Run the Test Suite
+
+```bash
+pytest
+```
+
+---
+
+## 🧩 Contribution Guidelines
+
+Please keep contributions:
+
+- Small and focused
+- Well documented
+- Consistent with the existing code style
+- Backed by tests where practical
+- Aligned with the project's goals
+
+### ✅ Good Contributions
+
+- Bug fixes
+- New tests
+- Documentation improvements
+- Performance enhancements
+- UI and accessibility improvements
+- Roadmap features
+
+### ❌ Please Avoid
+
+- Large unrelated changes in a single pull request
+- Unnecessary dependencies
+- Major architectural refactors without discussion
+- Breaking existing functionality
+
+---
+
+## 👨🏽‍💻 Development Notes
+
+### Database Seeding
+
+If you modify:
+
+```text
+counter/services/word_data.json
+```
+
+please run:
+
+```bash
+python -m counter.services.seed_origins
+```
+
+to verify the DuckDB database updates correctly.
+
+### Environment
+
+- Use a virtual environment.
+- Manage dependencies through `pyproject.toml`.
+- Update project dependencies when adding new packages.
+
+### Code Style
+
+- Follow PEP 8 guidelines.
+- Prefer small, focused functions.
+- Keep business logic inside the service layer where possible.
+- Add comments where they improve readability or explain intent.
+
+---
 
 ## 🧪 Testing
 
-Before submitting a PR, please ensure:
-1. The Django server starts without errors.
-2. The DuckDB etymology lookup returns results for standard test words (e.g., "house", "logic", "banana").
-3. PDF and Word exports generate correctly.
+Before submitting a pull request, please ensure:
+
+```bash
+pytest
+```
+
+runs successfully.
+
+Contributors are encouraged to add tests for:
+
+- Analysis services
+- Export functionality
+- Database utilities
+- Extraction pipelines
+- New roadmap features
+
+---
+
+## 📸 UI Changes
+
+If your contribution modifies the user interface, please include screenshots in your pull request.
+
+---
+
+## 🛣️ Roadmap Areas
+
+Contributions are especially welcome in:
+
+- Custom Stopword Management
+- Analysis Tags & Collections
+- Interactive Word Trends
+- Enhanced Geospatial Mapping
+- Readability Improvements
+- Comparative Analysis Enhancements
+- Reporting and Export Features
+
+---
+
+## 📜 License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.
 
 ## 📬 Questions?
 If you have any questions, feel free to open an issue or contact the maintainer at [reory35@hotmail.com].
