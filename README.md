@@ -105,6 +105,9 @@ Low score: Mass-market, accessible level (high school or below).
 ![Comparative Analysis](screenshots/compare2.png)
 ![Comparative Analysis](screenshots/compare3.png)
 ---
+- Custom Stopword Management UI: Dedicated interface for adding and managing personal stopword lists to tailor text analysis and filtering.
+![Custom Stopwords for users](screenshots/stopwords.png)
+---
 </details>
 
 ---
@@ -116,7 +119,6 @@ Word-Counter-Vault/
 │
 ├── manage.py                    # Django entry point
 ├── pyproject.toml               # Project dependencies and configuration
-├── pytest.ini                   # Pytest configuration
 ├── .env.example                 # Example environment variables
 ├── README.md
 ├── CONTRIBUTING.md
@@ -160,10 +162,12 @@ Word-Counter-Vault/
 │   ├── templates/               # HTML templates
 │   │   │
 │   │   ├── counter/
+│   │   │   ├── analysis.html
 │   │   │   ├── base.html
+│   │   │   ├── compare.html
 │   │   │   ├── counter.html
 │   │   │   ├── history.html
-│   │   │   └── analysis_detail.html
+│   │   │   └── stopwords.html
 │   │   │
 │   │   ├── registration/
 │   │   │   ├── login.html
@@ -265,7 +269,7 @@ This project implements a comprehensive automated testing suite using **Pytest**
 ### Running Tests Locally:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ---
@@ -285,7 +289,7 @@ pytest
 - [x] **Data Seeding:** Integration with `Faker` for large-scale stress testing.
 - [x] **Readability Metrics:** Add Flesch Reading Ease, and Gunning Fog Index calculations for deeper writing quality assessment.
 - [x] **Comparative Analysis:** Compare two text submissions side-by-side to identify differences in vocabulary, lexical diversity, readability, and writing style.
-- [ ] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
+- [x] **Custom Stopword Management:** Allow users to create personal stopword lists to exclude common or domain-specific words from analysis results.
 - [ ] **Analysis Tags & Collections:** Enable users to organiae saved analyses into categories, folders, or tagged collections for improved vault management.
 - [ ] **Interactive Word Trends:** Track frequently used words across a user's analysis history to visualise vocabulary evolution over time.
 - [ ] **Enhanced Geospatial Mapping:** Interactive etymology origins via `Plotly/Mapbox`.

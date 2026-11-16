@@ -2,7 +2,7 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
-from ..models import AnalysisRecord
+from ..models import AnalysisRecord, CustomStopword
 
 
 def get_user_history(user, search_query=""):
@@ -20,12 +20,24 @@ def get_user_history(user, search_query=""):
     # Return either the filtered list or the full history.
     return records
 
+
 def get_record_for_user(user, pk):
     """Securely fetches a record owned by a specific user."""
     
     return get_object_or_404(AnalysisRecord, pk=pk, user=user)
 
+
 def delete_record(record):
     """Encapsulate the deleltion logic."""
 
     record.delete()
+
+
+def get_user_stopwords(user) -> set[str]:
+    """Return a set of custom stopwords configured by the user."""
+
+    if not user or not user.is_authenticated:
+        return set()
+    return set(
+        CustomStopword.objects.filter(user=user).values_list("word", flat=True)
+    )

@@ -23,3 +23,8 @@ dev = [
     "pytest-django>=4.14.0",
     "pytest-mock>=3.17.0",
 ]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "wordcounterapp.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-v --tb=short --cov=counter --cov-report=term-missing --cov-report=html"

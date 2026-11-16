@@ -33,4 +33,9 @@ urlpatterns = [
     
     # This path is for comparing two text submissions side-by-side.
     path('compare/', views.compare, name='compare'),
+
+    # Custom Stopword mangement pages
+    path("stopwords/", views.manage_stopwords, name="manage_stopwords"),
+    path("stopwords/delete/<int:pk>/", views.delete_stopword, name="delete_stopword"),
+    path("stopwords/clear/", views.clear_stopwords, name="clear_stopwords")
 ]

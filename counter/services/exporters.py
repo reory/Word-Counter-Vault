@@ -63,9 +63,10 @@ def generate_pdf_report(context):
 
     # Handle the chart generation internally.
     text = context.get("text", "")
+    custom_stopwords = context.get("custom_stopwords")
 
     if text:
-        freq = get_word_frequencies(text)
+        freq = get_word_frequencies(text, custom_stopwords=custom_stopwords)
         words = [w for w, _ in freq]
         counts = [c for _, c in freq]
 
@@ -88,10 +89,10 @@ def generate_pdf_report(context):
     return html.write_pdf()
 
 
-def generate_word_frequency_chart_image(text):
+def generate_word_frequency_chart_image(text, custom_stopwords):
     """Internal helper for Word doc chart generation."""
 
-    freq = get_word_frequencies(text)
+    freq = get_word_frequencies(text, custom_stopwords=custom_stopwords)
     words = [w for w, _ in freq]
     counts = [c for _, c in freq]
 
@@ -128,7 +129,10 @@ def generate_docx_report(data):
 
     # Chart
     doc.add_heading("Word Frequency Chart", level=2)
-    chart_image = generate_word_frequency_chart_image(data.get("text", ""))
+    chart_image = generate_word_frequency_chart_image(
+        data.get("text", ""),
+        custom_stopwords=data.get("custom_stopwords"),
+    )
     doc.add_picture(chart_image, width=Inches(6))
     doc.paragraphs[-1].alignment = 1  # type:ignore
 

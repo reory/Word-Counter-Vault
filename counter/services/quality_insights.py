@@ -1,7 +1,7 @@
 import re
 from collections import Counter
 
-from .analysis import STOP_WORDS
+from .analysis import build_stopword_set
 
 
 def count_syllables(word: str) -> int:
@@ -52,7 +52,8 @@ def get_basic_metrics(text: str) -> dict:
     }
 
 
-def analyse_quality(text: str) -> dict:
+def analyse_quality(text: str, custom_stopwords: set[str] | None = None
+) -> dict:
     """Evaluate the input text and return metrics including readability scores."""
 
     # Split into sequences.
@@ -85,8 +86,9 @@ def analyse_quality(text: str) -> dict:
     gunning_fog = 0.4 * (words_per_sentence + percentage_complex)
     gunning_fog = round(gunning_fog, 2) if total_words and total_sentences else 0.0
 
+    active_stopwords = build_stopword_set(custom_stopwords)
     # Overused words (Using the import STOP_WORDS)
-    filtered = [w for w in words if w not in STOP_WORDS]
+    filtered = [w for w in words if w not in active_stopwords]
 
     # Only want words used more than 3 times to count as overused words
     overused = [

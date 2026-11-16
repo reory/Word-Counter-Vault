@@ -23,15 +23,28 @@ STOP_WORDS = {'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you'
     'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 
     'wouldn', "wouldn't"}
 
-def get_word_frequencies(text: str, limit: int = 10):
+
+def build_stopword_set(custom_stopwords: set[str] | None = None) -> set[str]:
+    """Return master STOP_WORDS combined with optional user-defined stopwords."""
+
+    if not custom_stopwords:
+        return STOP_WORDS
+    return STOP_WORDS | {w.strip().lower() for w in custom_stopwords if w.strip()}
+
+
+def get_word_frequencies(
+    text: str, limit: int = 10, custom_stopwords: set[str] | None = None
+):
     """Calculates the most frequent words; defaults to a top 10 list."""
+
+    active_stopwords = build_stopword_set(custom_stopwords)
 
     # Regex handles punctuation better than other methods.
     # eg, 'code,' becomes 'code'
     words = re.findall(r"\b[a-zA-Z']+\b", text.lower())
     
     # Create a new list excluding common 'filler' words (the, a, is, etc.)
-    filtered_words = [w for w in words if w not in STOP_WORDS]
+    filtered_words = [w for w in words if w not in active_stopwords]
 
     # Count word occurrences and return the top 'limit' (e.g., top 10) results
     return collections.Counter(filtered_words).most_common(limit)

@@ -52,3 +52,25 @@ class AnalysisRecord(models.Model):
         """Defines how a object appears as a string."""
 
         return f"{self.user.username} - {self.title or 'Unnamed'} ({self.uploaded_at.date()})"
+
+
+class CustomStopword(models.Model):
+    """Stores user-defined stopwords to exclude from the text analysis."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="custom_stopwords")
+    word = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "word")
+        ordering = ("word",)
+
+    def save(self, *args, **kwargs):
+        """Normalise word to lowercase and strip whitespace before saving."""
+
+        self.word = self.word.strip().lower()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+
+        return f"{self.user.username} - {self.word}"

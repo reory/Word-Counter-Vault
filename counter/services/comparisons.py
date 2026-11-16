@@ -48,7 +48,8 @@ def get_comparison_insights(quality_a: dict,quality_b: dict,) -> list:
     return insights
 
 
-def compare_texts(text_a: str, text_b: str) -> dict:
+def compare_texts(text_a: str, text_b: str, custom_stopwords: set[str] | None = None
+) -> dict:
     """Compare two text submissions and return side-by-side metrics."""
 
     # Generate baseline stats for both texts
@@ -56,8 +57,8 @@ def compare_texts(text_a: str, text_b: str) -> dict:
     metrics_b = get_basic_metrics(text_b)
 
     # Generate readability and quality metrics
-    quality_a = analyse_quality(text_a)
-    quality_b = analyse_quality(text_b)
+    quality_a = analyse_quality(text_a, custom_stopwords=custom_stopwords)
+    quality_b = analyse_quality(text_b, custom_stopwords=custom_stopwords)
 
     # Generate evidence based comparison observations
     insights = get_comparison_insights(
@@ -66,17 +67,23 @@ def compare_texts(text_a: str, text_b: str) -> dict:
     )
 
     # Generate summaries and topic extraction
-    summary_a = generate_summary(text_a)
-    summary_b = generate_summary(text_b)
+    summary_a = generate_summary(text_a, custom_stopwords=custom_stopwords)
+    summary_b = generate_summary(text_b, custom_stopwords=custom_stopwords)
 
     # Build a unqiue vocabulary set for Text A
     vocab_a = {
-        word for word, _ in get_word_frequencies(text_a, limit=2000)
+        word 
+        for word, _ in get_word_frequencies(
+            text_a, limit=2000, custom_stopwords=custom_stopwords
+        )
     }
 
     # Build a unique vocabulary set for Text B
     vocab_b = {
-        word for word, _ in get_word_frequencies(text_b, limit=2000)
+        word 
+        for word, _ in get_word_frequencies(
+            text_b, limit=2000, custom_stopwords=custom_stopwords
+        )
     }
 
     # Calculate shared and unique vocabulary.

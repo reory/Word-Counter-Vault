@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.templatetags.static import static
 
-from .models import AnalysisRecord
+from .models import AnalysisRecord, CustomStopword
 from .services import exporters, word_selectors
 from .services.comparisons import compare_texts
 from .services.quality_insights import analyse_quality, get_basic_metrics
@@ -57,12 +57,13 @@ def counter(request):
 
     # Analysis metrics. (Runs on GET after redirect.)
     if text:
-        # 2. DELEGATE LINGUISTIC MATH TO SERVICES
-        metrics = get_basic_metrics(text)
-        summary_data = generate_summary(text)
-        quality_data = analyse_quality(text)
+        user_stopwords = word_selectors.get_user_stopwords(request.user)
 
-        # Hook up the DuckDB.
+        metrics = get_basic_metrics(text)
+        summary_data = generate_summary(text, custom_stopwords=user_stopwords)
+        quality_data = analyse_quality(text, custom_stopwords=user_stopwords)
+
+        # Hook up DuckDB.
 
         # Lowercase the text and remove everything except letters/numbers.
         clean_text = text.lower()
@@ -153,11 +154,13 @@ def compare(request):
 
         # Only run the comparison when both fields contain text
         if text_a.strip() and text_b.strip():
+            user_stopwords = word_selectors.get_user_stopwords(request.user)
 
             # Delegate comparison logic to the service layer.
             context["results"] = compare_texts(
                 text_a,
                 text_b,
+                custom_stopwords=user_stopwords,
             )
 
             # Preserve submitted text after page refresh/render.
@@ -193,12 +196,13 @@ def register(request):
 
 def export_docx(request, pk=None):
     """
-    Export the PDF document for the user, either from the current session
+    Export the WORD document for the user, either from the current session
     or the vault (database).
     """
 
     # Gather data using the coordinator
     data = exporters.get_export_data(request.user, pk, request.session)
+    data["custom_stopwords"] = word_selectors.get_user_stopwords(request.user)
 
     # Generate and return
     docx_bytes = exporters.generate_docx_report(data)
@@ -212,10 +216,11 @@ def export_docx(request, pk=None):
 
 
 def export_pdf(request, pk=None):
-    """Export the WORD document for the user."""
+    """Export the PDF document for the user."""
 
     # Gather data using the coordinator
     data = exporters.get_export_data(request.user, pk, request.session)
+    data["custom_stopwords"] = word_selectors.get_user_stopwords(request.user)
     data["logo_url"] = request.build_absolute_uri(
         static("counter/img/python_developer.png")
     )
@@ -237,8 +242,11 @@ def word_frequency_chart(request):
     if not text.strip():
         return HttpResponse("No text provided", status=400)
 
+    user_stopwords = word_selectors.get_user_stopwords(request.user)
     # Use the existing chart logic now moved to exporters or a visuals service
-    chart_bytes = exporters.generate_word_frequency_chart_image(text)
+    chart_bytes = exporters.generate_word_frequency_chart_image(
+        text, custom_stopwords=user_stopwords
+    )
 
     return HttpResponse(chart_bytes.getvalue(), content_type="image/png")
 
@@ -325,3 +333,78 @@ def get_value_matches(word_list):
         }
         for r in results
     ]
+
+
+@login_required
+def manage_stopwords(request):
+    """Display and add custom stopwords for the logged-in user."""
+
+    if request.method == "POST":
+        raw_input = request.POST.get("words", "")
+        tokens = re.findall(r"\b[a-zA-Z']+\b", raw_input.lower())
+        unique_tokens = set(tokens)
+
+        added_count = 0
+        
+        for token in unique_tokens:
+            _, created = CustomStopword.objects.get_or_create(
+                user=request.user, word=token
+            )
+
+            if created:
+                added_count += 1
+
+        if added_count:
+            messages.success(
+                request,
+                f"Added {added_count} custom stopword(s) to your list.",
+            )
+
+        elif unique_tokens:
+            messages.info(
+                request, "Those word(s) are already in your stopword list."
+            )
+
+        else:
+            messages.error(request, "Please enter at least one valid word.")
+
+        return redirect("counter:manage_stopwords")
+
+    stopwords = CustomStopword.objects.filter(user=request.user)
+
+    return render(
+        request,
+        "counter/stopwords.html",
+        {"stopwords": stopwords},
+    )
+
+@login_required
+def delete_stopword(request, pk):
+    """Remove a single custom stopword owned by the current user."""
+
+    if request.method == "POST":
+        stopword = CustomStopword.objects.filter(
+            pk=pk, user=request.user
+        ).first()
+
+        if stopword:
+            word_label = stopword.word
+            stopword.delete()
+            messages.success(request, f"Removed '{word_label}' from stopwords.")
+    
+    return redirect("counter:manage_stopwords")
+
+@login_required
+def clear_stopwords(request):
+    """Remove all custom stopwords for the current user."""
+
+    if request.method == "POST":
+        deleted_count, _ = CustomStopword.objects.filter(
+            user=request.user
+        ).delete()
+        messages.success(
+            request, f"Cleared {deleted_count} custom stopword(s)."
+        )
+
+    return redirect("counter:manage_stopwords")
+

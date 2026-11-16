@@ -1,10 +1,11 @@
 import re
 from collections import Counter
 
-from .analysis import STOP_WORDS
+from .analysis import build_stopword_set
 
 
-def generate_summary(text: str) -> dict:
+def generate_summary(text: str, custom_stopwords: set[str] | None = None
+) -> dict:
     """Produce a concise summary of the input text as a dictionary."""
 
     # This splits on . ! or ? ONLY if followed by a space.
@@ -26,9 +27,10 @@ def generate_summary(text: str) -> dict:
 
     # Topics = Most common words.
     words = re.findall(r"\b[a-zA-Z']+\b", text.lower())
+    active_stopwords = build_stopword_set(custom_stopwords)
     
     # Filter using the master STOP_WORDS list.
-    filtered = [w for w in words if w not in STOP_WORDS and len(w) > 2]
+    filtered = [w for w in words if w not in active_stopwords and len(w) > 2]
 
     # Count frequencies.
     common = Counter(filtered).most_common(5)

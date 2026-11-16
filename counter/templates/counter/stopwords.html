@@ -1,0 +1,79 @@
+{% extends 'counter/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <a href="{% url 'counter:home' %}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left"></i> Back
+                </a>
+                <h2 class="text-primary fw-bold m-0">
+                    <i class="bi bi-funnel"></i> Custom Stopwords
+                </h2>
+            </div>
+
+            {% if stopwords %}
+            <form action="{% url 'counter:clear_stopwords' %}" method="POST"
+                  onsubmit="return confirm('Remove all custom stopwords?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger shadow-sm">
+                    <i class="bi bi-trash-fill"></i> Clear All
+                </button>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-4">
+                <h5 class="card-title text-primary mb-2">Add Words to Exclude</h5>
+                <p class="text-muted small mb-3">
+                    Enter one or more words separated by commas or spaces. These words will be ignored in frequency charts, topic extraction, overused word checks, and text comparisons.
+                </p>
+                <form method="POST" action="{% url 'counter:manage_stopwords' %}" class="d-flex gap-2">
+                    {% csrf_token %}
+                    <input type="text" name="words" class="form-control"
+                           placeholder="e.g. furthermore, however, dataset, company" required>
+                    <button type="submit" class="btn btn-primary px-4 shadow-sm">
+                        <i class="bi bi-plus-lg"></i> Add
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title text-primary m-0">Your Active Stopwords</h5>
+                    <span class="badge bg-primary">{{ stopwords.count }} words</span>
+                </div>
+
+                {% if stopwords %}
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for item in stopwords %}
+                            <form action="{% url 'counter:delete_stopword' item.pk %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit"
+                                        class="btn btn-sm btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-2"
+                                        title="Click to remove">
+                                    <span>{{ item.word }}</span>
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                </button>
+                            </form>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-filter-circle display-5 text-muted"></i>
+                        <p class="text-muted mt-2 mb-0">
+                            No custom stopwords yet. Default English stopwords are still active.
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
